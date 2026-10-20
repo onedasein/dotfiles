@@ -10,7 +10,7 @@
 	// 本地适配：右栏去掉 custom/cash —— 它要调 ~/.cargo/bin/cash-rate-logger（本机没装），
 	// 装着后把 "custom/cash" 加回下面数组即可。
 	// 本地适配：cpu 槽位换成电池，右栏现在显示电池图标 + 电量百分比
-	"modules-right": ["tray","battery","memory","pulseaudio"],
+	"modules-right": ["tray", "battery", "memory", "pulseaudio", "custom/gpu"],
 	// Modules configuration
 	"niri/workspaces": {
 		"all-outputs": true,
@@ -96,5 +96,14 @@
 		"return-type": "json",
 		"exec":"~/.cargo/bin/cash-rate-logger -c ~/.config/cash-rate-logger.toml --waybar"
 		//"exec": "/tmp/a.sh"
+	},
+	// local: GPU mode switch (click -> gpu-menu)
+	"custom/gpu": {
+		"format": "{text}",
+		"tooltip": true,
+		"interval": 3,
+		"return-type": "json",
+		"exec": "gpu waybar",
+		"on-click": "gpu-menu"
 	}
 }

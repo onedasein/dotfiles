@@ -35,7 +35,7 @@ environment {
 	QT_IM_MODULE "fcitx"
 	XMODIFIERS "@im=fcitx"
 	SDL_IM_MODULE "fcitx"
-	GTK_IM_MODULE "fcitx"
+//	GTK_IM_MODULE "fcitx"  无需
 	GLFW_IM_MODULE "ibus"
 }
 spawn-at-startup "fcitx5" "-d"
@@ -115,6 +115,7 @@ binds {
     Mod+T { spawn "firefox"; }
     Mod+Return { spawn "/home/dasein/.local/bin/wezterm"; }
     Mod+D      { spawn "fuzzel"; }
+    Mod+Shift+G { spawn "gpu-menu"; }   // GPU mode switch (power off to apply)
     Super+Alt+L { spawn "swaylock"; }
 
     // 关窗口 / 退会话（quit 会弹确认）
