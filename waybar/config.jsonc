@@ -9,7 +9,8 @@
 	"modules-center": ["clock"],
 	// 本地适配：右栏去掉 custom/cash —— 它要调 ~/.cargo/bin/cash-rate-logger（本机没装），
 	// 装着后把 "custom/cash" 加回下面数组即可。
-	"modules-right": ["tray","cpu","memory","battery","pulseaudio"],
+	// 本地适配：cpu 槽位换成电池，右栏现在显示电池图标 + 电量百分比
+	"modules-right": ["tray","battery","memory","pulseaudio"],
 	// Modules configuration
 	"niri/workspaces": {
 		"all-outputs": true,
@@ -53,12 +54,14 @@
 			"warning": 30,
 			"critical": 15
 		},
-		"format": "{time} {icon}",
-		"format-charging": "{time} 󰂄",
-		"format-plugged": "",
-		"format-alt": "{capacity}% {icon}",
+		// 本地适配：改成「电量% + 电池图标」；上游是剩余时间，插电时只剩一个插头图标，看不到电量
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% 󰂄",
+		"format-plugged": "{capacity}% {icon}",
+		"format-alt": "{time} {icon}",
 		"format-icons": ["󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]
 	},
+	// 本地适配：cpu 已从右栏移除（这个位置现在是电池）；想恢复就把 "cpu" 加回 modules-right
 	"cpu": {
 		"format": "{usage}% ",
 		"tooltip": true
