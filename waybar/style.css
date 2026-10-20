@@ -1,111 +1,330 @@
-/* ~/.config/waybar/style.css
- * 胶囊风 + 渐变点缀，强调色跟 niri 焦点环一致：#b026ff（深紫）→ #7df9ff（浅青）
- */
-
 * {
-    font-family: "JetBrainsMono Nerd Font", "Noto Sans Symbols", "DejaVu Sans", monospace;
-    font-size: 12px;
-    min-height: 0;
+    /* `otf-font-awesome` is required to be installed for icons */
+    /* 本地适配：本机没装 'NotoSans Nerd Font'（fc-match 会掉到非 Nerd 的 Noto Sans，
+       图标变豆腐块），改用已装的 FiraCode / JetBrainsMono Nerd Font 提供 Nerd 图标字形 */
+    font-family: Cantarell, 'FiraCode Nerd Font', 'JetBrainsMono Nerd Font';
+    font-size: 14px;
+    font-feature-settings: "tnum";
 }
 
 window#waybar {
-    background-color: rgba(30, 30, 46, 0.62);
-    background-image: linear-gradient(90deg, rgba(176, 38, 255, 0.18), rgba(125, 249, 255, 0.10));
-    color: #cdd6f4;
-    border-radius: 16px;
-    border: 1px solid rgba(176, 38, 255, 0.40);
-    padding: 0 6px;
-}
-
-/* 工作区：深色底胶囊，当前工作区用亮紫胶囊 */
-#workspaces {
-    background-color: rgba(17, 17, 27, 0.55);
-    border-radius: 99px;
-    margin: 4px 4px 4px 0;
-    padding: 0 4px;
-}
-
-#workspaces button {
-    padding: 0 10px;
-    margin: 3px 2px;
-    min-width: 10px;
-    border-radius: 99px;
-    border: none;
     background: transparent;
-    color: #7f849c;
-    transition: all 150ms ease;
+    /* background-color: rgba(30, 30, 46, 0.5); */
+    /* border-bottom: 2px solid rgba(147, 153, 178, 0.5); */
+    /* border: 1px solid rgba(166, 173, 200, 1.0); */
+    color: #ffffff;
+    /* transition-property: background-color; */
+    /* transition-duration: .5s; */
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: none;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+    transition-property: none;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+    -gtk-icon-effect: none;
+    -gtk-icon-shadow: none;
+}
+
+#workspaces {
+	background-color:rgba(30, 30, 46, 0.6);
+	border-radius:99px;
+}
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #ffffff;
 }
 
 #workspaces button:hover {
-    background: rgba(125, 249, 255, 0.20);
-    color: #cdd6f4;
+    background: rgba(0, 0, 0, 0);
 }
 
-#workspaces button.active {
-    background: #b026ff;
-    color: #f7f2ff;
-    font-weight: 600;
+#workspaces button.focused {
+    background-color: #AF00FF;
+	border-radius:99px;
+	color:white;
 }
-
-#workspaces button.empty {
-    color: #585b70;
+#workspaces button.empty{
+	border-radius:99px;
+	color:rgba(0xFF,0xFF,0xFF,.7);
 }
 
 #workspaces button.urgent {
-    background: #f38ba8;
-    color: #1e1e2e;
+	border-radius:99px;
+    background-color: #eb4d4b;
 }
 
-#window {
-    padding: 0 10px;
-    color: #a6adc8;
+#mode {
+    background-color: #64727D;
+    border-bottom: 3px solid #ffffff;
 }
 
-#clock {
-    padding: 0 14px;
-    color: #e6e0ff;
-    font-weight: 600;
-}
-
+#clock,
 #battery,
 #cpu,
 #memory,
-#pulseaudio,
+#disk,
+#temperature,
+#backlight,
 #network,
-#tray {
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#custom-cash,
+#mpd {
     padding: 0 10px;
-    color: #bac2de;
+    color: #f0f0ff;
+    background-color: rgba(30, 30, 46, 0.6);
+    border-radius: 99px;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    /* background-color: #64727D; */
+    font-weight: bold;
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    /* border-radius: 99px; */
+}
+
+#battery {
+    /* background-color: #f9e2af; */
+    /* color: #000000; */
+    /*margin-left: 4px;*/
+}
+
+/*
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+    background-color: #26A65B;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+*/
+
+#battery:not(.charging):not(.plugged) {
+    color: #c0b0ff;
+}
+
+/* 
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+*/
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu {
+    /* background-color: #f38ba8; */
+    /* color: #000000; */
+    border-radius: 99px 0px 0px 99px;
+    padding: 0 0 0 10px;
+    margin-left: 4px;
+}
+
+#memory {
+    /* background-color: #fab387; */
+    /* color: #000000; */
+    border-radius: 0px 99px 99px 0px;
+    /* padding: 0 10px 0 0; */
+}
+
+#disk {
+    background-color: #964B00;
+}
+
+#backlight {
+    background-color: #90b1b1;
+}
+
+#network {
+    /* background-color: #a6e3a1; */
+    /* color: #000000; */
+}
+
+/*
+#network.disconnected {
+    background-color: #f53c3c;
+}
+*/
+
+/*
+#pulseaudio {
+    background-color: #f1c40f;
+    color: #000000;
 }
 
 #pulseaudio.muted {
-    color: #f38ba8;
+    background-color: #90b1b1;
+    color: #2a5c45;
+}
+*/
+
+#wireplumber {
+    background-color: #fff0f5;
+    color: #000000;
 }
 
-#network.disconnected {
-    color: #f38ba8;
+#wireplumber.muted {
+    background-color: #f53c3c;
 }
 
-/* 电量：充电偏绿，20% 以下转黄，10% 以下转红 */
-#battery.charging {
-    color: #a6e3a1;
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
 }
 
-#battery.warning:not(.charging) {
-    color: #f9e2af;
+#custom-media.custom-spotify {
+    background-color: #66cc99;
 }
 
-#battery.critical:not(.charging) {
-    color: #f38ba8;
+#custom-media.custom-vlc {
+    background-color: #ffa000;
 }
 
-/* 工具提示也统一成胶囊风 */
-tooltip {
-    background: rgba(30, 30, 46, 0.96);
-    border: 1px solid rgba(176, 38, 255, 0.45);
-    border-radius: 10px;
+#temperature {
+    background-color: #f0932b;
 }
 
-tooltip label {
-    color: #cdd6f4;
-    padding: 4px;
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#tray {
+    /* background-color: #2980b9; */
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#idle_inhibitor {
+    background-color: #2d3436;
+}
+
+#idle_inhibitor.activated {
+    background-color: #ecf0f1;
+    color: #2d3436;
+}
+
+#mpd {
+    background-color: #66cc99;
+    color: #2a5c45;
+}
+
+#mpd.disconnected {
+    background-color: #f53c3c;
+}
+
+#mpd.stopped {
+    background-color: #90b1b1;
+}
+
+#mpd.paused {
+    background-color: #51a37a;
+}
+
+#language {
+    background: #00b093;
+    color: #740864;
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    background: #97e1ad;
+    color: #000000;
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
+#custom-cash.history-alert{
+    color:#07e229;
 }

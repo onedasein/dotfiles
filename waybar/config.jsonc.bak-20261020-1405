@@ -1,0 +1,73 @@
+// ~/.config/waybar/config.jsonc
+// 只用文本模块，不依赖 Nerd Font / Font Awesome（这台机器上没装，写图标会变豆腐块）。
+// 需要图标时先 `sudo apt install fonts-font-awesome`，再把下面格式里的文字换成图标码。
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 6,
+    "margin-top": 8,
+    "margin-left": 12,
+    "margin-right": 12,
+
+    "modules-left": ["niri/workspaces", "niri/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["battery", "cpu", "memory", "pulseaudio", "network", "tray"],
+
+    // niri 专属模块（waybar >= 0.11，本机 0.15 支持）
+    "niri/workspaces": {
+        "format": "{index}",
+        "all-outputs": true
+    },
+    "niri/window": {
+        "format": "{title}",
+        "max-length": 40
+    },
+
+    "clock": {
+        "format": " {:%m-%d %H:%M}",
+        "tooltip-format": "{:%Y-%m-%d %A}"
+    },
+
+    // 电量：放电时显示「78% · 3h5m」，插电显示 AC，充电显示 CHG。
+    // {time} 在插电/估算未就绪时为空，所以只在放电那档拼进去。
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{capacity}% · {time}",
+        "format-time": "{H}h{M}m",
+        "format-charging": "CHG {capacity}%",
+        "format-plugged": "AC {capacity}%",
+        "format-full": "AC {capacity}%",
+        "tooltip-format": "电量 {capacity}%",
+        "on-click": "gnome-control-center power"
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 3
+    },
+    "memory": {
+        "format": " {used}/{total} GiB",
+        "interval": 5
+    },
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": " MUTE",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    },
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " ETH",
+        "format-disconnected": " OFF",
+        "tooltip-format": "{ifname} / {ipaddr}"
+    },
+    "tray": {
+        "spacing": 8
+    }
+}
