@@ -1,0 +1,270 @@
+// ~/.config/niri/config.kdl
+//
+// Niri 配置 —— 已用 niri 26.04（Ubuntu 26.04 PPA 包）的 `niri validate` 实际校验通过。
+// 键位与官方默认配置保持一致，只改了间距/焦点环/启动项。
+//
+// 用法：
+//   niri validate -c ~/.config/niri/config.kdl    # 校验
+//   niri msg action reload-config                 # 热重载
+//
+// 注意：niri 用的是 KDL v2 语法。同一行里写完 node 再闭合括号时必须有分号，
+// 例如 `Mod+T { spawn "alacritty"; }`，漏了分号会报 "unexpected token"。
+
+// ── 杂项 ──────────────────────────────────────────────────────────────
+
+// 让应用尽量不画自己的标题栏/阴影，交给 niri 统一处理
+prefer-no-csd
+
+// 启动时不弹"重要热键"浮窗；随时可按 Mod+Shift+/ 打开
+hotkey-overlay {
+    skip-at-startup;
+}
+
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
+
+// 启动时自动拉起：壁纸、空闲锁屏（用不到的注释掉）
+// 注意：状态栏 waybar 由 systemd 用户服务 waybar.service 自动启动；
+// 这里不要再 spawn waybar，否则会同时出现两条重复的顶栏。
+// spawn-at-startup "waybar"
+spawn-at-startup "mako"
+// 壁纸：与 GNOME「设置 → 外观 → 背景」当前选中的是同一张图（gsettings org.gnome.desktop.background picture-uri），
+//        -m fill 相当于 GNOME 的 zoom（等比放大铺满并裁切）。想换图改这里的路径即可。
+spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/osselo-Ask_a_friend.jpg" "-m" "fill"
+
+environment {
+	QT_IM_MODULE "fcitx"
+	XMODIFIERS "@im=fcitx"
+	SDL_IM_MODULE "fcitx"
+	GTK_IM_MODULE "fcitx"
+	GLFW_IM_MODULE "ibus"
+}
+spawn-at-startup "fcitx5" "-d"
+// 空闲自动锁屏：5 分钟不操作就锁屏；休眠/合盖前也先锁住
+spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "before-sleep" "swaylock -f"
+// polkit 认证代理：GUI 里需要管理员权限的操作（改时间、装软件、配网络）会弹认证框
+spawn-at-startup "/home/dasein/.local/opt/polkit-mate/polkit-mate-authentication-agent-1"
+
+// 动画：想要截图那种"瞬间就位"的手感可以关
+animations {
+    // off
+}
+
+// ── 输入设备 ──────────────────────────────────────────────────────────
+
+input {
+    keyboard {
+        xkb {
+            layout "us";
+            // 双布局：options "grp:alt_shift_toggle";
+            options "altwin:menu_win"
+        }
+        numlock;
+    }
+
+    touchpad {
+        tap;              // 轻点即点击
+        natural-scroll;   // 内容跟随手指方向
+        // dwt;           // 打字时禁用触摸板
+    }
+}
+
+// ── 布局 ──────────────────────────────────────────────────────────────
+
+layout {
+    // 窗口间距。截图里的呼吸感主要来自这里（再叠加 alacritty 的 padding）
+    gaps 12
+
+    // "never"：聚焦离屏列时保持贴边滚动，不强行居中
+    center-focused-column "never"
+
+    // Mod+R 循环的三档列宽
+    preset-column-widths {
+        proportion 0.33333;
+        proportion 0.5;
+        proportion 0.66667;
+    }
+
+    // 新窗口默认占半屏
+    default-column-width { proportion 0.5; }
+
+    // 焦点环：截图里窗口外那圈彩色描边
+    focus-ring {
+        // 聚焦描边粗细（px）。嫌细改大，嫌压内容改小
+        width 6
+        // 渐变彩色（官方语法：active-gradient from= to= angle=，等价 CSS linear-gradient）
+        // 去掉 relative-to 后，每个窗口各自从左下深紫渐变到右上浅青，色带完整、更醒目
+        active-gradient from="#b026ff" to="#7df9ff" angle=45
+        inactive-color "#3a3a3a"
+    }
+
+    // 不再叠一层边框，避免双线
+    border {
+        off
+    }
+}
+
+// ── 快捷键 ────────────────────────────────────────────────────────────
+//
+// Mod = Super/Win（在 winit 窗口里运行时自动等于 Alt）
+
+binds {
+    // 启动程序
+    // 主终端用 WezTerm（Mod+Return），Alacritty 留作备用（Mod+T）。
+    // 注意：WezTerm 装在 ~/.local 下，不在 niri 的 PATH 里，所以这里用绝对路径。
+    Mod+Space      { spawn "alacritty"; }
+    Mod+T { spawn "firefox"; }
+    Mod+Return { spawn "/home/dasein/.local/bin/wezterm"; }
+    Mod+D      { spawn "fuzzel"; }
+    Super+Alt+L { spawn "swaylock"; }
+
+    // 关窗口 / 退会话（quit 会弹确认）
+    Mod+Q     { close-window; }
+    Mod+Escape { quit; }
+//    Mod+Shift+E { quit; }
+
+    // 焦点：列用 H/L，列内窗口用 J/K
+    Mod+H     { focus-column-left; }
+    Mod+Left  { focus-column-left; }
+    Mod+L     { focus-column-right; }
+    Mod+Right { focus-column-right; }
+    Mod+J     { focus-window-down; }
+    Mod+Down  { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+Up    { focus-window-up; }
+
+    // 移动整列 / 列内移动单个窗口（官方默认是 Ctrl，不是 Shift）
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+Up    { move-window-up; }
+
+    // 列宽与最大化
+    Mod+R       { switch-preset-column-width; }        // 1/3 → 1/2 → 2/3
+    Mod+Shift+R { switch-preset-column-width-back; }   // 反向循环
+    Mod+Minus   { set-column-width "-10%"; }           // 微调
+    Mod+Equal   { set-column-width "+10%"; }
+    Mod+F       { maximize-column; }                   // 保留间距的"最大化"
+    Mod+M       { maximize-window-to-edges; }          // 贴边最大化
+    Mod+Shift+F { fullscreen-window; }                 // 真全屏
+    Mod+C       { center-column; }
+
+    // 分屏的关键：把窗口收进当前列 / 拆出去
+    // 截图里 fastfetch 与 top 上下叠放，靠的就是 consume-window-into-column
+    Mod+Comma       { consume-window-into-column; }
+    Mod+Period      { expel-window-from-column; }
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // 列内标签页显示（默认就是 Mod+W）
+    Mod+W { toggle-column-tabbed-display; }
+
+    // 浮动
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // 工作区：niri 的工作区是纵向的
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+U { focus-workspace-down; }
+    Mod+I { focus-workspace-up; }
+    Mod+Ctrl+U { move-column-to-workspace-down; }
+    Mod+Ctrl+I { move-column-to-workspace-up; }
+
+    // 总览（所有工作区缩略图）
+    Mod+O { toggle-overview; }
+
+    // 热键总览：记不住键位时按这个
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // 截图
+    Print      { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print  { screenshot-window; }
+
+    // 关显示器
+    Mod+Shift+P { power-off-monitors; }
+
+    // 音量（需要 pipewire + wireplumber）
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    // 亮度：这台面板不跟随 EC 背光，改用 gamma 软件调光（gammastep + niri 的 gamma 控制协议）
+    XF86MonBrightnessUp   allow-when-locked=true cooldown-ms=150 { spawn "/home/dasein/.local/bin/screen-brightness" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true cooldown-ms=150 { spawn "/home/dasein/.local/bin/screen-brightness" "down"; }
+}
+
+// ── 窗口规则（可选） ──────────────────────────────────────────────────
+//
+// 想给某个应用固定初始宽度、或让它默认浮动时用：
+//
+// window-rule {
+//     match app-id="^Alacritty$"
+//     default-column-width { proportion 0.5; }
+// }
+//
+// window-rule {
+//     match app-id="^pavucontrol$"
+//     open-floating true
+// }
+
+// WezTerm 已知 bug（wezterm#4708）：它会等待一个 0 尺寸的 Wayland configure，
+// 导致在 niri 下窗口永远不出现。下面这条规则让 WezTerm 自己决定初始宽度，
+// 窗口即可正常显示（niri 官方默认配置里同样带这一条）。
+// 参考：https://github.com/niri-wm/niri/wiki/Application-Issues#wezterm
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+window-rule {
+    match app-id="wezterm"
+    draw-border-with-background false
+}
+
+// 圆角窗口 + 聚焦描边跟着圆角走（niri 25.08 起支持）
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+// 消除焦点环底色
+window-rule {
+    match app-id="Alacritty"
+    draw-border-with-background false
+
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="neovide"
+    background-effect {
+        blur true
+    }
+}
+
+// ── 参考 cppHusky/dotfiles 补的两条 ───────────────────────────────────
+// 1) 合盖立刻上锁：休眠前会先执行 swaylock，避免唤醒后会话裸奔。
+//    （niri 26.04 支持 switch-events；swaylock 已安装。）
+switch-events {
+    lid-close {
+        spawn "swaylock";
+    }
+}
+
+// 2) 内屏按需 VRR：这块屏 2560x1600@165Hz 且支持 VRR，但当前没开。
+//    on-demand 只在游戏/视频这类场景启用可变刷新，平时固定 165Hz 不变。
+//    若遇到闪烁，把下面一行注释掉即可恢复。
+output "eDP-2" {
+    mode "2560x1600@165.000"
+    variable-refresh-rate on-demand=true
+}

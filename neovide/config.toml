@@ -1,0 +1,26 @@
+# Window size: pick one of three (mutually exclusive; Neovide 0.16+ applies on save, no restart needed)
+maximized = true
+# size = "2400x1500"
+# grid = "190x50"
+# Remove WSLg's light-grey title bar; the trade-off is WSLg also scales the window up and shifts it,
+# clipping one row off the bottom lualine.
+# Use "full" instead if you want that row back (the white frame returns, but the title bar is then
+# the only place you can drag the window).
+frame = "none"
+idle = false
+vsync = true
+tabs = true
+
+# 字体：和终端里的 nvim/vim 保持一致（FiraCode Nerd Font），两个客户端共用。
+# 必须写在 toml 而不是 Neovim 侧的 guifont：guifont 会整体替换字体选项，
+# 下面的 [font.features] 会被一起丢掉，连字就关不掉了。
+[font]
+# 回退家族：Linux 上是 "JetBrainsMono Nerd Font"，Windows 上是 "JetBrainsMono NF"；
+# 都没装时 Neovide 退回自带的 Fira Code（图标会变方框）。
+normal = ["FiraCode Nerd Font", "JetBrainsMono Nerd Font", "JetBrainsMono NF"]
+size = 14.0
+
+# 关连字：calt/liga/clig 是 "->" "!=" "=>" 之类被合并成单字形的元凶，
+# dlig 是可选连字（FiraCode 的 www、ffi 组合）。键名必须和 normal 里的家族名完全一致。
+[font.features]
+"FiraCode Nerd Font" = ["-calt", "-liga", "-clig", "-dlig"]

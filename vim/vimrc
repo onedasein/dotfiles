@@ -1,0 +1,94 @@
+set nocompatible
+
+" ---- 本地适配（上游没有这行；以后重新拉上游 vimrc 时记得保留）----
+" 上游把 vimrc/syntax 放在 ~/.config/vim（= Ubuntu vim 默认 rtp 第一项），
+" 但 vim-plug 本体 ~/.vim/autoload/plug.vim 和老插件目录在 ~/.vim，不在 rtp 里，
+" 不加这行 plug#begin() 会报 E117: Unknown function: plug#begin。
+set runtimepath+=~/.vim
+" ---- 本地适配结束 ----
+
+set showcmd
+set nu rnu
+set shiftwidth=4 tabstop=4 softtabstop=4
+set autoindent
+set shortmess-=S
+set backupcopy=yes
+autocmd TerminalOpen * setlocal nonu nornu
+filetype on
+filetype plugin on
+filetype indent on
+autocmd Filetype rust setlocal foldmethod=syntax
+autocmd Filetype html,xml,css setlocal sw=2 ts=2 foldmethod=syntax
+autocmd Filetype mediawiki setlocal nolinebreak
+autocmd Filetype typst setlocal noet sw=2 ts=2 sts=2
+autocmd Filetype rust setlocal noet sw=4 ts=4 sts=4
+autocmd Filetype python,sage setlocal noet
+autocmd Filetype markdown setlocal et sw=4 ts=4 sts=4
+autocmd Filetype yaml setlocal et
+autocmd Filetype javascript,typescript,typescriptreact,vue,astro setlocal sw=2 ts=2 sts=2
+autocmd BufNewFile,BufRead *.wl set syntax=wl
+autocmd BufNewFile,BufRead *.wls set syntax=wl
+autocmd BufNewFile,BufRead *.mdx setfiletype markdown
+syntax on
+" ---- 本地适配：配色（上游是 color zellner，白底；这里换成 Catppuccin Mocha）----
+" 上游用 color zellner，是浅色/白底配色，配深色终端太刺眼。
+" 改用 Vim 9.1 自带的 colors/catppuccin.vim（vim-runtime 包内，无需装插件）：
+" 它按 'background' 自动选 Mocha(dark) / Latte(light)，Mocha 的
+" #1e1e2e 背景 / #cdd6f4 前景与 WezTerm、Alacritty 的终端配色完全一致；
+" termguicolors 让终端用真彩色取这套颜色。
+" 想换别家深色，改下面 colorscheme 一行即可（如 habamax / retrobox / unokai）。
+set termguicolors
+set background=dark
+colorscheme catppuccin
+" 注意：上游下面那三行 hi 是为白底调过色的，深色底上不能沿用，已删除——
+" hi CursorLine guibg=Grey90       " 白底上的浅灰光标行，在 Mocha 底上是一条亮灰条
+" hi markdownCode ctermfg=DarkCyan    " 深青字在白底够看，在深色底几乎不可读
+" hi markdownCodeBlock ctermfg=DarkCyan
+" catppuccin 自带 CursorLine 与 markdown* 的深色配色，无需覆盖。
+set cursorline
+" ---- 本地适配结束 ----
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set list
+set incsearch showmode showmatch hlsearch
+set wildmenu
+call plug#begin()
+Plug '907th/vim-auto-save'
+Plug 'ciaranm/detectindent'
+Plug 'findango/vim-mdx'
+Plug 'jasonccox/vim-wayland-clipboard'
+Plug 'kaarmu/typst.vim'
+Plug 'masukomi/vim-markdown-folding'
+Plug 'voldikss/vim-mma'
+Plug 'wakatime/vim-wakatime'
+call plug#end()
+autocmd BufReadPost *
+	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	\	exe "normal! g`\"" |
+	\ endif
+autocmd BufReadPost * if &filetype!=#'markdown' | DetectIndent | endif
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <PageUp> <Nop>
+inoremap <PageDown> <Nop>
+noremap <PageUp> <Nop>
+noremap <PageDown> <Nop>
+noremap <S-Up> <Nop>
+noremap <S-Down> <Nop>
+inoremap <S-Up> <Nop>
+inoremap <S-Down> <Nop>
+inoremap jk <Esc>
+let g:sql_type_default='pgsql'
+let g:auto_save_silent=1
+let g:auto_save_events=["TextChanged","TextChangedI"]
+let g:updatetime=5000
+
+
+"set background transparent
+highlight Normal guibg=NONE ctermbg=NONE
+highlight NormalFloat guibg=NONE
+highlight NonText guibg=NONE ctermbg=NONE
+highlight LineNr guifg=#808080 ctermfg=Gray
+
+

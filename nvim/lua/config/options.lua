@@ -1,0 +1,64 @@
+-- 编辑器基础选项：对齐 ~/dotfiles 里 vimrc 的老习惯（4 空格、相对行号、共享剪贴板……）
+local opt = vim.opt
+
+-- ===== 行号 / 光标 =====
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
+opt.signcolumn = "yes"
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+
+-- ===== 缩进：tab = 4 空格 =====
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.shiftround = true
+opt.smartindent = true
+opt.breakindent = true
+
+-- ===== 搜索 =====
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+opt.inccommand = "split"
+
+-- ===== 界面 =====
+opt.termguicolors = true
+opt.mouse = "a"
+opt.mousescroll = "ver:3,hor:6"
+opt.splitright = true
+opt.splitbelow = true
+opt.showmode = false          -- lualine 已经显示模式
+opt.ruler = false
+opt.laststatus = 3            -- 全局状态栏（lualine）
+opt.cmdheight = 0             -- noice.nvim 接管命令行，留 0 行更干净
+opt.pumheight = 12
+opt.winborder = "rounded"     -- 0.11+：浮动窗口圆角边框
+opt.fillchars = { eob = " ", fold = " ", foldopen = "", foldclose = "" }
+opt.completeopt = { "menuone", "noselect" }
+opt.shortmess:append({ I = true, c = true, C = true })
+opt.wrap = false              -- 长行不折行（看代码更像 IDE）
+opt.linebreak = true
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+
+-- ===== 文件 / 撤销 / 剪贴板 =====
+opt.swapfile = false
+opt.backup = false
+opt.writebackup = false
+opt.autoread = true
+opt.confirm = true
+opt.undofile = true
+opt.undodir = vim.fn.stdpath("state") .. "/undo"
+opt.clipboard = "unnamedplus" -- WSLg 下走 xclip/wl-copy；Neovide 自己也有剪贴板通道
+opt.updatetime = 250
+opt.timeoutlen = 400
+opt.ttimeoutlen = 50
+
+-- ===== 杂项 =====
+opt.history = 500
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3

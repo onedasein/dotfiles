@@ -1,0 +1,100 @@
+# ~/.config/alacritty/alacritty.toml
+# Alacritty 0.13+ 使用 TOML 格式；更老的版本用 alacritty.yml（YAML），字段名基本对应。
+# 截图那种「无边框 + 留白 + 圆角感」主要靠下面 padding + 无装饰 + 透明度。
+
+[window]
+# 由 niri 接管窗口装饰，终端自身不出标题栏
+decorations = "none"
+# 内边距：截图里的留白就来自这里，和 niri 的 gaps 叠加
+padding = { x = 14, y = 12 }
+opacity = 0.80
+dynamic_padding = false
+startup_mode = "Windowed"
+blur = true
+ 
+[scrolling]
+history = 20000
+multiplier = 3
+
+[font]
+size = 14.0
+# 装了 Nerd Font 才有图标；没有就退回 "monospace"
+normal = { family = "FiraCode Nerd Font", style = "Regular" }
+bold = { family = "FiraCode Nerd Font", style = "Bold" }
+italic = { family = "FiraCode Nerd Font", style = "Italic" }
+
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+dim_foreground = "#7f849c"
+bright_foreground = "#cdd6f4"
+
+[colors.cursor]
+text = "#1e1e2e"
+cursor = "#f5e0dc"
+
+[colors.vi_mode_cursor]
+text = "#1e1e2e"
+cursor = "#b4befe"
+
+[colors.selection]
+text = "#1e1e2e"
+background = "#f5e0dc"
+
+[colors.normal]
+black = "#45475a"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#bac2de"
+
+[colors.bright]
+black = "#585b70"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#a6adc8"
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+
+[terminal]
+osc52 = "CopyPaste"
+
+# ── 复制粘贴 ──────────────────────────────────────────────────────────
+# 默认就有 Ctrl+Shift+C / Ctrl+Shift+V；这里再把 Ctrl+V 也接到粘贴上，
+# Ctrl+C 仍是发 SIGINT（终端里 Ctrl+C 必须能中断程序，不能拿来复制）。
+[[keyboard.bindings]]
+key = "c"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "v"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "v"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "Insert"
+mods = "Control"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "Insert"
+mods = "Shift"
+action = "PasteSelection"
+
+# 鼠标划选完立刻进系统剪贴板（Wayland 默认就是 true，这里写明方便以后改）
+[selection]
+save_to_clipboard = true
