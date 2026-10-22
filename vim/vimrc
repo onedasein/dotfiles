@@ -30,25 +30,26 @@ autocmd BufNewFile,BufRead *.wl set syntax=wl
 autocmd BufNewFile,BufRead *.wls set syntax=wl
 autocmd BufNewFile,BufRead *.mdx setfiletype markdown
 syntax on
-" ---- 本地适配：配色（亮色 + 纯白背景）----
+" ---- 本地适配：配色（亮色 + Latte 米白背景）----
 " Vim 9.1 自带 colors/catppuccin.vim（vim-runtime 包内，无需装插件），
 " 它按 'background' 自动选 Mocha(dark) / Latte(light)。这里要亮色，用 Latte。
-" Latte 的默认底色是 #eff1f5 米白；这里统一压成纯白 #ffffff，和 Alacritty / WezTerm 对齐。
+" Latte 自带底色就是 #eff1f5（冷调米白），比纯白柔和；这里仍显式覆盖一遍，
+" 保证 colorscheme 被换掉或重载时也还是同一个背景色。
 " termguicolors 让终端用真彩色取这套颜色；否则会退回 256 色近似值。
-" 想换别家亮色，改下面 colorscheme 一行即可；纯白覆盖那段保持不动也行。
+" 想换别家亮色，改下面 colorscheme 一行即可；米白覆盖那段保持不动也行。
 set termguicolors
 set background=light
 colorscheme catppuccin
-" 纯白底覆盖（必须写在 colorscheme 之后才生效）：
-highlight Normal guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=231
-highlight NormalFloat guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=231
-" Latte 的灰色系在白底上对比度太低，NonText/行号/折叠列都加深到 overlay 色。
-highlight NonText guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=231
-highlight EndOfBuffer guifg=#ffffff guibg=#ffffff ctermfg=231 ctermbg=231
-highlight SignColumn guibg=#ffffff ctermbg=231
-highlight FoldColumn guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=231
-highlight LineNr guifg=#7c7f93 guibg=#ffffff ctermfg=243 ctermbg=231
-highlight CursorLineNr guifg=#df8e1d guibg=#ffffff ctermfg=214 ctermbg=231
+" 米白底覆盖（必须写在 colorscheme 之后才生效）：
+highlight Normal guifg=#4c4f69 guibg=#eff1f5 ctermfg=235 ctermbg=255
+highlight NormalFloat guifg=#4c4f69 guibg=#eff1f5 ctermfg=235 ctermbg=255
+" Latte 的灰色系在浅底上对比度偏低，NonText/行号/折叠列都加深到 overlay 色。
+highlight NonText guifg=#9ca0b0 guibg=#eff1f5 ctermfg=247 ctermbg=255
+highlight EndOfBuffer guifg=#eff1f5 guibg=#eff1f5 ctermfg=231 ctermbg=255
+highlight SignColumn guibg=#eff1f5 ctermbg=255
+highlight FoldColumn guifg=#9ca0b0 guibg=#eff1f5 ctermfg=247 ctermbg=255
+highlight LineNr guifg=#7c7f93 guibg=#eff1f5 ctermfg=243 ctermbg=255
+highlight CursorLineNr guifg=#df8e1d guibg=#eff1f5 ctermfg=214 ctermbg=255
 " Catppuccin 自带 CursorLine 与 markdown* 的配色，保持原样，无需覆盖。
 set cursorline
 " ---- 本地适配结束 ----
@@ -91,6 +92,6 @@ let g:updatetime=5000
 
 
 " 说明：旧的透明化 hi（Normal/NormalFloat/NonText guibg=NONE）已删除——
-" 纯白亮色主题要求不透明底色，留 NONE 会透出终端/桌面颜色。
+" 亮色主题要求不透明底色，留 NONE 会透出终端/桌面颜色。
 
 

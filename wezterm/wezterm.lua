@@ -23,14 +23,14 @@ config.font_size = 14.0
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 
 -- 配色与外观
--- 亮色主题：Catppuccin Latte 的调色板，但底色强制纯白 #ffffff。
--- 不用内置 color_scheme（Latte 的底色是 #eff1f5 米白），这里逐项写死。
--- Latte 的 white 是 #acb0be，纯白上几乎看不见，第 8 个 ansi 色加深成 overlay0。
+-- 亮色主题：Catppuccin Latte 原生米白底 #eff1f5（比纯白柔和，久看不刺眼）。
+-- 不用内置 color_scheme，逐项写死方便单独微调；想更白就改下面 background。
+-- Latte 的 white 是 #acb0be，在米白底上几乎看不见，第 8 个 ansi 色加深成 overlay0。
 config.colors = {
 	foreground = "#4c4f69",
-	background = "#ffffff",
+	background = "#eff1f5",
 	cursor_bg = "#dc8a78",
-	cursor_fg = "#ffffff",
+	cursor_fg = "#eff1f5",
 	cursor_border = "#dc8a78",
 	selection_fg = "#4c4f69",
 	selection_bg = "#ccd0da",
@@ -57,7 +57,7 @@ config.colors = {
 		"#8c8fa1",
 	},
 }
--- 1.0 = 完全不透明；纯白底必须不透明，否则会透出桌面。
+-- 1.0 = 完全不透明；亮色米白底必须不透明，否则会透出桌面。
 -- 想再要「透出桌面」就调回 0.9 左右。
 config.window_background_opacity = 1.0
 config.window_decorations = "NONE" -- 无边框，交给 niri 平铺管理

@@ -1,7 +1,7 @@
 -- 界面层：主题、状态栏、标签栏、提示浮窗、缩进线、图标
 return {
-	-- 主题：tokyonight 的亮色变体 day，底色再压成纯白（见下面 config 里的覆盖）。
-	-- 终端（alacritty/wezterm）与 vim 用 Catppuccin Latte 的白色 #ffffff，这里对齐。
+	-- 主题：tokyonight 的亮色变体 day，底色再压成 Latte 米白（见下面 config 里的覆盖）。
+	-- 终端（alacritty/wezterm）与 vim 用 Catppuccin Latte 的米白底 #eff1f5，这里对齐。
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
@@ -20,32 +20,32 @@ return {
 			require("tokyonight").setup(opts)
 			vim.cmd.colorscheme("tokyonight")
 
-			-- 纯白底覆盖：day 的默认底色是 #e1e2e7（偏灰蓝），这里统一压成 #ffffff。
-			-- 同时把偏淡的 UI 色加深一档，纯白上才看得清。
+			-- 米白底覆盖：day 的默认底色是 #e1e2e7（偏灰蓝），这里统一压成 Latte 的 #eff1f5。
+			-- 同时把偏淡的 UI 色加深一档，浅底上才看得清。
 			-- 之所以挂在 ColorScheme 自动命令上，是因为任何 :colorscheme 重新加载都会洗掉这些覆盖。
-			local white = "#ffffff"
+			local bg = "#eff1f5"
 			local text = "#4c4f69"
 			local muted = "#9ca0b0"
-			local function apply_light_white()
+			local function apply_light()
 				local hl = vim.api.nvim_set_hl
-				hl(0, "Normal", { fg = text, bg = white })
-				hl(0, "NormalNC", { fg = text, bg = white })
-				hl(0, "NormalFloat", { fg = text, bg = white })
-				hl(0, "FloatBorder", { fg = muted, bg = white })
-				hl(0, "FloatTitle", { fg = "#1e66f5", bg = white, bold = true })
-				hl(0, "NonText", { fg = muted, bg = white })
-				hl(0, "EndOfBuffer", { fg = white, bg = white })
-				hl(0, "LineNr", { fg = "#7c7f93", bg = white })
-				hl(0, "CursorLineNr", { fg = "#df8e1d", bg = white, bold = true })
-				hl(0, "SignColumn", { bg = white })
-				hl(0, "FoldColumn", { fg = muted, bg = white })
-				hl(0, "CursorLine", { bg = "#f2f4f8" }) -- 纯白上的浅灰高亮行
-				hl(0, "WinSeparator", { fg = "#dce0e8", bg = white })
+				hl(0, "Normal", { fg = text, bg = bg })
+				hl(0, "NormalNC", { fg = text, bg = bg })
+				hl(0, "NormalFloat", { fg = text, bg = bg })
+				hl(0, "FloatBorder", { fg = muted, bg = bg })
+				hl(0, "FloatTitle", { fg = "#1e66f5", bg = bg, bold = true })
+				hl(0, "NonText", { fg = muted, bg = bg })
+				hl(0, "EndOfBuffer", { fg = bg, bg = bg })
+				hl(0, "LineNr", { fg = "#7c7f93", bg = bg })
+				hl(0, "CursorLineNr", { fg = "#df8e1d", bg = bg, bold = true })
+				hl(0, "SignColumn", { bg = bg })
+				hl(0, "FoldColumn", { fg = muted, bg = bg })
+				hl(0, "CursorLine", { bg = "#e6e9ef" }) -- 比米白底略深的高亮行
+				hl(0, "WinSeparator", { fg = "#dce0e8", bg = bg })
 				hl(0, "VertSplit", { link = "WinSeparator" })
-				hl(0, "MsgArea", { fg = text, bg = white })
+				hl(0, "MsgArea", { fg = text, bg = bg })
 			end
-			apply_light_white()
-			vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_light_white })
+			apply_light()
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_light })
 		end,
 	},
 

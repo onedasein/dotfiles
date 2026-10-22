@@ -1,18 +1,18 @@
 # ~/.config/alacritty/alacritty.toml
 # Alacritty 0.13+ 使用 TOML 格式；更老的版本用 alacritty.yml（YAML），字段名基本对应。
-# 当前主题：亮色（纯白背景）+ Catppuccin Latte 的调色板，透明度已关闭。
+# 当前主题：亮色（Latte 原生米白底 #eff1f5）+ Catppuccin Latte 调色板，透明度已关闭。
 
 [window]
 # 由 niri 接管窗口装饰，终端自身不出标题栏
 decorations = "none"
 # 内边距：截图里的留白就来自这里，和 niri 的 gaps 叠加
 padding = { x = 14, y = 12 }
-# 1.0 = 完全不透明（纯白底必须不透明，否则会透出桌面）。
+# 1.0 = 完全不透明（亮色米白底必须不透明，否则会透出桌面）。
 # 想再要「透出桌面」就把这里调回 0.8 左右，同时把 blur 打开。
 opacity = 1.0
 dynamic_padding = false
 startup_mode = "Windowed"
-# 模糊只在 opacity < 1 时才有意义，纯白不透明时保持关闭
+# 模糊只在 opacity < 1 时才有意义，不透明时保持关闭
 blur = false
 
 [scrolling]
@@ -26,21 +26,22 @@ normal = { family = "FiraCode Nerd Font", style = "Regular" }
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
 
-# ── 配色：Catppuccin Latte，底色压成纯白 ──────────────────────────────
-# Latte 原本的底色是 #eff1f5（米白），要「纯白」就写 #ffffff；
-# 前景和各种语法色仍是 Latte 的原色，白底上对比度足够。
+# ── 配色：Catppuccin Latte，直接用它原生的米白底色 ────────────────────
+# Latte 原生底色就是 #eff1f5（冷调米白），比纯白柔和，久看不刺眼；
+# 前景和各种语法色仍是 Latte 原色，在米白底上对比度足够。
+# 想要更白就把下面 background 改成 #ffffff 或 #fafafa。
 [colors.primary]
-background = "#ffffff"
+background = "#eff1f5"
 foreground = "#4c4f69"
 dim_foreground = "#8c8fa1"
 bright_foreground = "#4c4f69"
 
 [colors.cursor]
-text = "#ffffff"
+text = "#eff1f5"
 cursor = "#dc8a78"
 
 [colors.vi_mode_cursor]
-text = "#ffffff"
+text = "#eff1f5"
 cursor = "#1e66f5"
 
 [colors.selection]
@@ -55,7 +56,7 @@ yellow = "#df8e1d"
 blue = "#1e66f5"
 magenta = "#8839ef"
 cyan = "#179299"
-# Latte 的 white 是 #acb0be，在纯白上几乎看不见（2:1），这里加深成 overlay0
+# Latte 的 white 是 #acb0be，在米白底上几乎看不见（2:1），这里加深成 overlay0
 white = "#6c6f85"
 
 [colors.bright]
