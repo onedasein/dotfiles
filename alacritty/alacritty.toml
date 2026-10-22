@@ -35,7 +35,8 @@ italic = { family = "FiraCode Nerd Font", style = "Italic" }
 # 加深才能让粗体/高亮文字有区分度（GitHub Light 等亮色主题也是这么做的）。
 # 想更白就把 background 改成 #ffffff 或 #fafafa，对比度只会更高。
 [colors.primary]
-background = "#eff1f5"
+# background = "#eff1f5"
+background = "#ffffff"
 # 输入的命令/普通输出用纯黑，米白底上最清楚；想柔和一点可改 #111111 或 #1a1a1a
 foreground = "#000000"
 dim_foreground = "#7c7f93"
