@@ -41,15 +41,15 @@ set termguicolors
 set background=light
 colorscheme catppuccin
 " 米白底覆盖（必须写在 colorscheme 之后才生效）：
-highlight Normal guifg=#4c4f69 guibg=#eff1f5 ctermfg=235 ctermbg=255
-highlight NormalFloat guifg=#4c4f69 guibg=#eff1f5 ctermfg=235 ctermbg=255
+highlight Normal guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=255
+highlight NormalFloat guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=255
 " Latte 的灰色系在浅底上对比度偏低，NonText/行号/折叠列都加深到 overlay 色。
-highlight NonText guifg=#9ca0b0 guibg=#eff1f5 ctermfg=247 ctermbg=255
-highlight EndOfBuffer guifg=#eff1f5 guibg=#eff1f5 ctermfg=231 ctermbg=255
-highlight SignColumn guibg=#eff1f5 ctermbg=255
-highlight FoldColumn guifg=#9ca0b0 guibg=#eff1f5 ctermfg=247 ctermbg=255
-highlight LineNr guifg=#7c7f93 guibg=#eff1f5 ctermfg=243 ctermbg=255
-highlight CursorLineNr guifg=#df8e1d guibg=#eff1f5 ctermfg=214 ctermbg=255
+highlight NonText guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=255
+highlight EndOfBuffer guifg=#ffffff guibg=#ffffff ctermfg=231 ctermbg=255
+highlight SignColumn guibg=#ffffff ctermbg=255
+highlight FoldColumn guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=255
+highlight LineNr guifg=#7c7f93 guibg=#ffffff ctermfg=243 ctermbg=255
+highlight CursorLineNr guifg=#df8e1d guibg=#ffffff ctermfg=214 ctermbg=255
 " 注释：Latte 的 #7c7f93 在米白底上只有 3.7:1，压到 overlay1 #6c6f85（4.9:1）
 highlight Comment guifg=#6c6f85 ctermfg=243 gui=italic cterm=italic
 
