@@ -26,15 +26,19 @@ normal = { family = "FiraCode Nerd Font", style = "Regular" }
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
 
-# ── 配色：Catppuccin Latte，直接用它原生的米白底色 ────────────────────
-# Latte 原生底色就是 #eff1f5（冷调米白），比纯白柔和，久看不刺眼；
-# 前景和各种语法色仍是 Latte 原色，在米白底上对比度足够。
-# 想要更白就把下面 background 改成 #ffffff 或 #fafafa。
+# ── 配色：Catppuccin Latte 的色相 + 为亮底调过的明度 ──────────────────
+# 底色用 Latte 原生米白 #eff1f5。但 Latte 那套 ANSI 是给深色终端设计的，
+# 原样放到米白底上：绿 #40a02b 对比度 2.96、黄 #df8e1d 2.31、青 #179299 3.31，
+# 全都低于 4.5，`ls`/`grep`/`git` 的彩色输出会发虚。
+# 这里保持色相不动、只把明度压暗，normal 色统一到 4.8:1 以上，bright 色到 6.8:1。
+# bright 反而比 normal 更深是亮色主题的惯例：亮底上「更亮」等于看不见，
+# 加深才能让粗体/高亮文字有区分度（GitHub Light 等亮色主题也是这么做的）。
+# 想更白就把 background 改成 #ffffff 或 #fafafa，对比度只会更高。
 [colors.primary]
 background = "#eff1f5"
 foreground = "#4c4f69"
-dim_foreground = "#8c8fa1"
-bright_foreground = "#4c4f69"
+dim_foreground = "#7c7f93"
+bright_foreground = "#3b3d52"
 
 [colors.cursor]
 text = "#eff1f5"
@@ -42,32 +46,32 @@ cursor = "#dc8a78"
 
 [colors.vi_mode_cursor]
 text = "#eff1f5"
-cursor = "#1e66f5"
+cursor = "#105cf4"
 
 [colors.selection]
 text = "#4c4f69"
 background = "#ccd0da"
 
 [colors.normal]
-black = "#5c5f77"
-red = "#d20f39"
-green = "#40a02b"
-yellow = "#df8e1d"
-blue = "#1e66f5"
-magenta = "#8839ef"
-cyan = "#179299"
-# Latte 的 white 是 #acb0be，在米白底上几乎看不见（2:1），这里加深成 overlay0
-white = "#6c6f85"
+# 前两列是 Latte 原色，注释里的数字是在 #eff1f5 上的对比度
+black = "#5c5f77"    # 5.53
+red = "#d20f39"      # 4.80
+green = "#307820"    # 4.84（原 #40a02b 只有 2.96）
+yellow = "#935e13"   # 4.82（原 #df8e1d 只有 2.31）
+blue = "#105cf4"     # 4.81（原 #1e66f5 只有 4.34）
+magenta = "#8838ef"  # 4.81
+cyan = "#13757b"     # 4.81（原 #179299 只有 3.31）
+white = "#63697f"    # 4.81（Latte white #acb0be 只有 1.91）
 
 [colors.bright]
-black = "#6c6f85"
-red = "#d20f39"
-green = "#40a02b"
-yellow = "#df8e1d"
-blue = "#1e66f5"
-magenta = "#8839ef"
-cyan = "#179299"
-white = "#8c8fa1"
+black = "#4f5166"    # 6.87
+red = "#a60c2d"      # 6.85
+green = "#265e19"    # 6.88
+yellow = "#744a0f"   # 6.80
+blue = "#0947c4"     # 6.85
+magenta = "#6912dc"  # 6.83
+cyan = "#0f5c61"     # 6.82
+white = "#4e5263"    # 6.85
 
 [cursor]
 style = { shape = "Block", blinking = "Off" }

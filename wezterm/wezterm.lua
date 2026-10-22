@@ -23,9 +23,11 @@ config.font_size = 14.0
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 
 -- 配色与外观
--- 亮色主题：Catppuccin Latte 原生米白底 #eff1f5（比纯白柔和，久看不刺眼）。
--- 不用内置 color_scheme，逐项写死方便单独微调；想更白就改下面 background。
--- Latte 的 white 是 #acb0be，在米白底上几乎看不见，第 8 个 ansi 色加深成 overlay0。
+-- 亮色主题：Catppuccin Latte 的色相 + 为米白底调过的明度，底色 #eff1f5。
+-- Latte 的 ANSI 原色是给深色终端调的，直接放亮底上绿/黄/青对比度只有 2.3~3.3；
+-- 这里保持色相、压暗明度，normal 统一 ≥4.8:1、bright ≥6.8:1，
+-- 且 bright 比 normal 更深（亮底上「更亮」等于看不见，加深才有区分度）。
+-- 与 alacritty.toml 的数值逐项一致，两个终端切换时颜色不变。
 config.colors = {
 	foreground = "#4c4f69",
 	background = "#eff1f5",
@@ -37,24 +39,24 @@ config.colors = {
 	scrollbar_thumb = "#ccd0da",
 	split = "#dce0e8",
 	ansi = {
-		"#5c5f77",
-		"#d20f39",
-		"#40a02b",
-		"#df8e1d",
-		"#1e66f5",
-		"#8839ef",
-		"#179299",
-		"#6c6f85",
+		"#5c5f77", -- black
+		"#d20f39", -- red
+		"#307820", -- green
+		"#935e13", -- yellow
+		"#105cf4", -- blue
+		"#8838ef", -- magenta
+		"#13757b", -- cyan
+		"#63697f", -- white
 	},
 	brights = {
-		"#6c6f85",
-		"#d20f39",
-		"#40a02b",
-		"#df8e1d",
-		"#1e66f5",
-		"#8839ef",
-		"#179299",
-		"#8c8fa1",
+		"#4f5166", -- bright black
+		"#a60c2d", -- bright red
+		"#265e19", -- bright green
+		"#744a0f", -- bright yellow
+		"#0947c4", -- bright blue
+		"#6912dc", -- bright magenta
+		"#0f5c61", -- bright cyan
+		"#4e5263", -- bright white
 	},
 }
 -- 1.0 = 完全不透明；亮色米白底必须不透明，否则会透出桌面。
