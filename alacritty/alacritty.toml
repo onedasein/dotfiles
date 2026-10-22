@@ -41,10 +41,12 @@ dim_foreground = "#7c7f93"
 bright_foreground = "#3b3d52"
 
 [colors.cursor]
+# 光标用纯黑方块：米白底上最醒目，也和「亮色主题 + 深色文字」的整体调性一致
 text = "#eff1f5"
-cursor = "#dc8a78"
+cursor = "#000000"
 
 [colors.vi_mode_cursor]
+# vi 模式的光标保持蓝色，和普通模式的黑光标区分开
 text = "#eff1f5"
 cursor = "#105cf4"
 

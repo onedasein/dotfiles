@@ -31,9 +31,9 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 config.colors = {
 	foreground = "#4c4f69",
 	background = "#eff1f5",
-	cursor_bg = "#dc8a78",
+	cursor_bg = "#000000",
 	cursor_fg = "#eff1f5",
-	cursor_border = "#dc8a78",
+	cursor_border = "#000000",
 	selection_fg = "#4c4f69",
 	selection_bg = "#ccd0da",
 	scrollbar_thumb = "#ccd0da",

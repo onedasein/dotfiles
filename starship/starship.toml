@@ -1,7 +1,8 @@
 # ~/.dotfiles/starship/starship.toml   (软链到 ~/.config/starship.toml)
 # 配色跟终端保持同一色系。底色换成亮色米白 #eff1f5 后，Mocha 那批亮色在浅底上
 # 对比度只有 2~3:1，所以路径单独换成 Latte 的 mauve 紫（4.8:1），其余按需再调。
-#   #8839ef 紫（路径）  #89b4fa 蓝（用户名/边框）  #f9e2af 黄（分支）  #f38ba8 红（git 状态、出错）
+#   #307820 绿（路径）  #8839ef 紫（提示符箭头）  #89b4fa 蓝（用户名/边框）
+#   #f9e2af 黄（分支）  #f38ba8 红（git 状态、出错）
 #   #a6e3a1 绿（成功）  #b4befe 淡紫（主机名）  #94e2d5 青（工具链版本）  #6c7086 灰（耗时/时间）
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -21,7 +22,8 @@ format = """
 # 所以「耗时 / 退出码 / 时间」都放在左边，而不是塞进 right_format 里当摆设。
 
 [character]
-success_symbol = '[➜](bold #a6e3a1)'
+# 提示符箭头用 mauve 紫，和青色/绿色系的状态符号区分开
+success_symbol = '[➜](bold #8839ef)'
 error_symbol = '[➜](bold #f38ba8)'
 vimcmd_symbol = '[❮](bold #f9e2af)'
 
@@ -40,8 +42,9 @@ format = '@[$hostname]($style)'
 [directory]
 truncation_length = 3
 truncate_to_repo = false
-# 路径用 Latte mauve：米白底上 #89b4fa 只有约 2:1，紫的 4.8:1 才看得清。
-style = 'bold #8839ef'
+# 路径用绿色：Latte 原绿 #40a02b 在米白底上只有 2.96:1，
+# 这里用压暗一档的 #307820（4.8:1），和终端 ANSI 的 green 是同一个值。
+style = 'bold #307820'
 read_only = ' '
 read_only_style = '#f9e2af'
 format = '[$path]($style)[$read_only]($read_only_style)'
