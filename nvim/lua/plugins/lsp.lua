@@ -409,4 +409,41 @@ return {
       }
     end,
   },
+  -- Tinymist: 预览typst编译结果 --
+  {
+      "mason-org/mason.nvim",
+      opts = {},    -- 只配置Mason本身
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = {"tinymist"},
+    },
+  },
+  {
+    -- neovim 0.11+ 新写法--
+    "neovim/nvim-lspconfig",
+    config = function()
+      -- 配置tinymist
+     vim.lsp.config("tinymist" ,{
+        settings = {
+          formatterMode = "typstyle",
+          exportPdf = "onType",
+        },
+      })
+      -- 启用tinymist
+      vim.lsp.enable("tinymist")
+    end,
+  },
+  -- typst预览
+  {
+    "chomosuke/typst-preview.nvim",
+    ft = "typst",
+    version = "1.*",
+    build = function() require("typst-preview").update() end,
+  }
 }
