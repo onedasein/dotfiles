@@ -49,7 +49,7 @@ cursor = "#000000"
 [colors.vi_mode_cursor]
 # vi 模式的光标保持蓝色，和普通模式的黑光标区分开
 text = "#eff1f5"
-cursor = "#105cf4"
+cursor = "#2563eb"
 
 [colors.selection]
 text = "#4c4f69"
@@ -61,7 +61,7 @@ black = "#5c5f77"    # 5.53
 red = "#d20f39"      # 4.80
 green = "#307820"    # 4.84（原 #40a02b 只有 2.96）
 yellow = "#935e13"   # 4.82（原 #df8e1d 只有 2.31）
-blue = "#105cf4"     # 4.81（原 #1e66f5 只有 4.34）
+blue = "#2563eb"     # 4.57（原来 #105cf4 偏深，看着发闷）
 magenta = "#8838ef"  # 4.81
 cyan = "#13757b"     # 4.81（原 #179299 只有 3.31）
 white = "#63697f"    # 4.81（Latte white #acb0be 只有 1.91）
@@ -71,7 +71,7 @@ black = "#4f5166"    # 6.87
 red = "#a60c2d"      # 6.85
 green = "#265e19"    # 6.88
 yellow = "#744a0f"   # 6.80
-blue = "#0947c4"     # 6.85
+blue = "#1d4ed8"     # 5.93
 magenta = "#6912dc"  # 6.83
 cyan = "#0f5c61"     # 6.82
 white = "#4e5263"    # 6.85

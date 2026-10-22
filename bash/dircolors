@@ -1,0 +1,206 @@
+# ~/.dotfiles/bash/dircolors  (软链到 ~/.dircolors)
+# GNU ls 的 `ls --color` 配色。由 `dircolors -p` 生成后去掉所有粗体标记（01），
+# 并把目录蓝色交给终端的 ANSI blue（alacritty/wezterm 里已调成皇家蓝）。
+# 修改后重开 shell，或 eval "$(dircolors -b ~/.dircolors)"。
+#
+# 注意：这里只影响 ls 的彩色输出，不影响 git/man 等其他程序的粗体。
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
+# slackware version of dircolors) are recognized but ignored.
+# Global config options can be specified before TERM or COLORTERM entries
+# Below are TERM or COLORTERM entries, which can be glob patterns, which
+# restrict following config to systems with matching environment variables.
+COLORTERM ?*
+TERM Eterm
+TERM alacritty*
+TERM ansi
+TERM *color*
+TERM con[0-9]*x[0-9]*
+TERM cons25
+TERM console
+TERM cygwin
+TERM *direct*
+TERM dtterm
+TERM foot
+TERM gnome
+TERM hurd
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mlterm
+TERM putty
+TERM rxvt*
+TERM screen*
+TERM st
+TERM terminator
+TERM tmux*
+TERM vt100
+TERM wezterm*
+TERM xterm*
+# Below are the color init strings for the basic file types.
+# One can use codes for 256 or more colors supported by modern terminals.
+# The default color codes use the capabilities of an 8 color terminal
+# with some additional attributes as per the following codes:
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#NORMAL 00 # no color code at all
+#FILE 00 # regular file: use no color at all
+RESET 0
+DIR 34
+LINK 36
+MULTIHARDLINK 00
+FIFO 40;33
+SOCK 35
+DOOR 35
+BLK 40;33
+CHR 40;33
+ORPHAN 40;31
+MISSING 00
+SETUID 37;41
+SETGID 30;43
+CAPABILITY 00
+STICKY_OTHER_WRITABLE 30;42
+OTHER_WRITABLE 34;42
+STICKY 37;44
+EXEC 32
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to color below. Put the extension, a space, and the color init string.
+.tar 31
+.tgz 31
+.arc 31
+.arj 31
+.taz 31
+.lha 31
+.lz4 31
+.lzh 31
+.lzma 31
+.tlz 31
+.txz 31
+.tzo 31
+.t7z 31
+.zip 31
+.z 31
+.dz 31
+.gz 31
+.lrz 31
+.lz 31
+.lzo 31
+.xz 31
+.zst 31
+.tzst 31
+.bz2 31
+.bz 31
+.tbz 31
+.tbz2 31
+.tz 31
+.deb 31
+.rpm 31
+.jar 31
+.war 31
+.ear 31
+.sar 31
+.rar 31
+.alz 31
+.ace 31
+.zoo 31
+.cpio 31
+.7z 31
+.rz 31
+.cab 31
+.wim 31
+.swm 31
+.dwm 31
+.esd 31
+.avif 35
+.jpg 35
+.jpeg 35
+.mjpg 35
+.mjpeg 35
+.gif 35
+.bmp 35
+.pbm 35
+.pgm 35
+.ppm 35
+.tga 35
+.xbm 35
+.xpm 35
+.tif 35
+.tiff 35
+.png 35
+.svg 35
+.svgz 35
+.mng 35
+.pcx 35
+.mov 35
+.mpg 35
+.mpeg 35
+.m2v 35
+.mkv 35
+.webm 35
+.webp 35
+.ogm 35
+.mp4 35
+.m4v 35
+.mp4v 35
+.vob 35
+.qt 35
+.nuv 35
+.wmv 35
+.asf 35
+.rm 35
+.rmvb 35
+.flc 35
+.avi 35
+.fli 35
+.flv 35
+.gl 35
+.dl 35
+.xcf 35
+.xwd 35
+.yuv 35
+.cgm 35
+.emf 35
+.ogv 35
+.ogx 35
+.aac 00;36
+.au 00;36
+.flac 00;36
+.m4a 00;36
+.mid 00;36
+.midi 00;36
+.mka 00;36
+.mp3 00;36
+.mpc 00;36
+.ogg 00;36
+.ra 00;36
+.wav 00;36
+.oga 00;36
+.opus 00;36
+.spx 00;36
+.xspf 00;36
+*~ 00;90
+*# 00;90
+.bak 00;90
+.old 00;90
+.orig 00;90
+.part 00;90
+.rej 00;90
+.swp 00;90
+.tmp 00;90
+.dpkg-dist 00;90
+.dpkg-old 00;90
+.ucf-dist 00;90
+.ucf-new 00;90
+.ucf-old 00;90
+.rpmnew 00;90
+.rpmorig 00;90
+.rpmsave 00;90
+# Subsequent TERM or COLORTERM entries, can be used to add / override
+# config specific to those matching environment variables.

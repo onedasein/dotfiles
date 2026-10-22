@@ -44,7 +44,7 @@ config.colors = {
 		"#d20f39", -- red
 		"#307820", -- green
 		"#935e13", -- yellow
-		"#105cf4", -- blue
+		"#2563eb", -- blue
 		"#8838ef", -- magenta
 		"#13757b", -- cyan
 		"#63697f", -- white
@@ -54,7 +54,7 @@ config.colors = {
 		"#a60c2d", -- bright red
 		"#265e19", -- bright green
 		"#744a0f", -- bright yellow
-		"#0947c4", -- bright blue
+		"#1d4ed8", -- bright blue
 		"#6912dc", -- bright magenta
 		"#0f5c61", -- bright cyan
 		"#4e5263", -- bright white
