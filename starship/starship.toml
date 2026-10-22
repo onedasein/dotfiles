@@ -51,11 +51,11 @@ format = '[$path]($style)[$read_only]($read_only_style)'
 
 [git_branch]
 symbol = ''
-style = 'bold #f9e2af'
+style = 'bold #FF1493'
 format = ' [$symbol$branch]($style)'
 
 [git_status]
-style = '#f38ba8'
+style = '#FF1493'
 format = ' ([$all_status$ahead_behind]($style))'
 conflicted = '='
 ahead = '⇡'
@@ -113,7 +113,7 @@ style = 'bold #f38ba8'
 disabled = false
 time_format = '%H:%M'
 format = ' [$time]($style)'
-style = '#6c7086'
+style = '#8839ef'
 
 # 关掉用不上的模块
 [package]
