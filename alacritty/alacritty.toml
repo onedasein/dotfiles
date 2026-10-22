@@ -1,17 +1,20 @@
 # ~/.config/alacritty/alacritty.toml
 # Alacritty 0.13+ 使用 TOML 格式；更老的版本用 alacritty.yml（YAML），字段名基本对应。
-# 截图那种「无边框 + 留白 + 圆角感」主要靠下面 padding + 无装饰 + 透明度。
+# 当前主题：亮色（纯白背景）+ Catppuccin Latte 的调色板，透明度已关闭。
 
 [window]
 # 由 niri 接管窗口装饰，终端自身不出标题栏
 decorations = "none"
 # 内边距：截图里的留白就来自这里，和 niri 的 gaps 叠加
 padding = { x = 14, y = 12 }
-opacity = 0.80
+# 1.0 = 完全不透明（纯白底必须不透明，否则会透出桌面）。
+# 想再要「透出桌面」就把这里调回 0.8 左右，同时把 blur 打开。
+opacity = 1.0
 dynamic_padding = false
 startup_mode = "Windowed"
-blur = true
- 
+# 模糊只在 opacity < 1 时才有意义，纯白不透明时保持关闭
+blur = false
+
 [scrolling]
 history = 20000
 multiplier = 3
@@ -23,43 +26,47 @@ normal = { family = "FiraCode Nerd Font", style = "Regular" }
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
 
+# ── 配色：Catppuccin Latte，底色压成纯白 ──────────────────────────────
+# Latte 原本的底色是 #eff1f5（米白），要「纯白」就写 #ffffff；
+# 前景和各种语法色仍是 Latte 的原色，白底上对比度足够。
 [colors.primary]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-dim_foreground = "#7f849c"
-bright_foreground = "#cdd6f4"
+background = "#ffffff"
+foreground = "#4c4f69"
+dim_foreground = "#8c8fa1"
+bright_foreground = "#4c4f69"
 
 [colors.cursor]
-text = "#1e1e2e"
-cursor = "#f5e0dc"
+text = "#ffffff"
+cursor = "#dc8a78"
 
 [colors.vi_mode_cursor]
-text = "#1e1e2e"
-cursor = "#b4befe"
+text = "#ffffff"
+cursor = "#1e66f5"
 
 [colors.selection]
-text = "#1e1e2e"
-background = "#f5e0dc"
+text = "#4c4f69"
+background = "#ccd0da"
 
 [colors.normal]
-black = "#45475a"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#bac2de"
+black = "#5c5f77"
+red = "#d20f39"
+green = "#40a02b"
+yellow = "#df8e1d"
+blue = "#1e66f5"
+magenta = "#8839ef"
+cyan = "#179299"
+# Latte 的 white 是 #acb0be，在纯白上几乎看不见（2:1），这里加深成 overlay0
+white = "#6c6f85"
 
 [colors.bright]
-black = "#585b70"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#a6adc8"
+black = "#6c6f85"
+red = "#d20f39"
+green = "#40a02b"
+yellow = "#df8e1d"
+blue = "#1e66f5"
+magenta = "#8839ef"
+cyan = "#179299"
+white = "#8c8fa1"
 
 [cursor]
 style = { shape = "Block", blinking = "Off" }

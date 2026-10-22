@@ -26,9 +26,14 @@ vim.g.neovide_padding_bottom = 6
 vim.g.neovide_padding_left = 8
 vim.g.neovide_padding_right = 8
 
+-- 主题：0.16+ 支持 "light" / "dark" / "auto"。
+-- 亮色主题必须写 light：默认 auto 会跟随系统，系统是深色时标题栏和系统配色会变深。
+vim.g.neovide_theme = "light"
+
 -- 标题栏配色（仅 Windows；标题栏平时被 GlazeWM 隐藏，这里只是兜底用）
-vim.g.neovide_title_background_color = "#1a1b26"
-vim.g.neovide_title_text_color = "#c0caf5"
+-- 亮色主题下用纯白底 + 深灰字，和窗口内容连成一片。
+vim.g.neovide_title_background_color = "#ffffff"
+vim.g.neovide_title_text_color = "#4c4f69"
 
 -- 浮动窗口（telescope / noice 的命令行与补全菜单 / hover 等）：影子 + 圆角 + 轻微模糊
 vim.g.neovide_floating_shadow = true
@@ -39,10 +44,11 @@ vim.g.neovide_floating_corner_radius = 0.35
 vim.g.neovide_floating_blur_amount_x = 3.0
 vim.g.neovide_floating_blur_amount_y = 3.0
 
--- 透明度：0.9 = 10% 透出桌面（0.0-1.0，越小越透；1.0 完全不透明）
--- 想更通透就调到 0.85；看不清文字就回到 0.95
-vim.g.neovide_opacity = 0.85
-vim.g.neovide_normal_opacity = 0.85
+-- 透明度：1.0 = 完全不透明。亮色 + 纯白背景必须关掉透明，
+-- 否则会透出桌面/其他窗口的深色内容，白色看起来发灰。
+-- 想重新要透明效果就把这两个值调回 0.85 左右。
+vim.g.neovide_opacity = 1.0
+vim.g.neovide_normal_opacity = 1.0
 
 -- 动效：短一点更跟手，太长会晕
 vim.g.neovide_position_animation_length = 0.12

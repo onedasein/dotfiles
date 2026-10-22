@@ -1,23 +1,51 @@
 -- 界面层：主题、状态栏、标签栏、提示浮窗、缩进线、图标
 return {
-	-- 主题：tokyonight（你在 vim 里就用它，这里延续同一套配色）
+	-- 主题：tokyonight 的亮色变体 day，底色再压成纯白（见下面 config 里的覆盖）。
+	-- 终端（alacritty/wezterm）与 vim 用 Catppuccin Latte 的白色 #ffffff，这里对齐。
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		opts = {
-			style = "moon",
+			style = "day",
 			transparent = false,
 			styles = {
 				comments = { italic = true },
 				keywords = { italic = true },
 				sidebars = { "qf", "help", "neo-tree", "Trouble" },
-				floats = "dark",
+				floats = "light",
 			},
 		},
 		config = function(_, opts)
 			require("tokyonight").setup(opts)
 			vim.cmd.colorscheme("tokyonight")
+
+			-- 纯白底覆盖：day 的默认底色是 #e1e2e7（偏灰蓝），这里统一压成 #ffffff。
+			-- 同时把偏淡的 UI 色加深一档，纯白上才看得清。
+			-- 之所以挂在 ColorScheme 自动命令上，是因为任何 :colorscheme 重新加载都会洗掉这些覆盖。
+			local white = "#ffffff"
+			local text = "#4c4f69"
+			local muted = "#9ca0b0"
+			local function apply_light_white()
+				local hl = vim.api.nvim_set_hl
+				hl(0, "Normal", { fg = text, bg = white })
+				hl(0, "NormalNC", { fg = text, bg = white })
+				hl(0, "NormalFloat", { fg = text, bg = white })
+				hl(0, "FloatBorder", { fg = muted, bg = white })
+				hl(0, "FloatTitle", { fg = "#1e66f5", bg = white, bold = true })
+				hl(0, "NonText", { fg = muted, bg = white })
+				hl(0, "EndOfBuffer", { fg = white, bg = white })
+				hl(0, "LineNr", { fg = "#7c7f93", bg = white })
+				hl(0, "CursorLineNr", { fg = "#df8e1d", bg = white, bold = true })
+				hl(0, "SignColumn", { bg = white })
+				hl(0, "FoldColumn", { fg = muted, bg = white })
+				hl(0, "CursorLine", { bg = "#f2f4f8" }) -- 纯白上的浅灰高亮行
+				hl(0, "WinSeparator", { fg = "#dce0e8", bg = white })
+				hl(0, "VertSplit", { link = "WinSeparator" })
+				hl(0, "MsgArea", { fg = text, bg = white })
+			end
+			apply_light_white()
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_light_white })
 		end,
 	},
 
@@ -30,7 +58,9 @@ return {
 		event = "VeryLazy",
 		opts = {
 			options = {
-				theme = "tokyonight",
+				-- lualine 没有内置 tokyonight 主题（原来写 "tokyonight" 会静默 fallback），
+				-- 亮色底上直接用内置的 "onelight"。
+				theme = "onelight",
 				globalstatus = true,
 				icons_enabled = true,
 				section_separators = { left = "", right = "" },
@@ -183,5 +213,4 @@ return {
 			},
 		},
 	},
-	vim.api.nvim_set_hl(0, "LineNr", { fg = "#8A8A8A", bg = "NONE" }),
 }

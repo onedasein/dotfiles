@@ -23,8 +23,43 @@ config.font_size = 14.0
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 
 -- 配色与外观
-config.color_scheme = "Catppuccin Mocha"
-config.window_background_opacity = 0.90
+-- 亮色主题：Catppuccin Latte 的调色板，但底色强制纯白 #ffffff。
+-- 不用内置 color_scheme（Latte 的底色是 #eff1f5 米白），这里逐项写死。
+-- Latte 的 white 是 #acb0be，纯白上几乎看不见，第 8 个 ansi 色加深成 overlay0。
+config.colors = {
+	foreground = "#4c4f69",
+	background = "#ffffff",
+	cursor_bg = "#dc8a78",
+	cursor_fg = "#ffffff",
+	cursor_border = "#dc8a78",
+	selection_fg = "#4c4f69",
+	selection_bg = "#ccd0da",
+	scrollbar_thumb = "#ccd0da",
+	split = "#dce0e8",
+	ansi = {
+		"#5c5f77",
+		"#d20f39",
+		"#40a02b",
+		"#df8e1d",
+		"#1e66f5",
+		"#8839ef",
+		"#179299",
+		"#6c6f85",
+	},
+	brights = {
+		"#6c6f85",
+		"#d20f39",
+		"#40a02b",
+		"#df8e1d",
+		"#1e66f5",
+		"#8839ef",
+		"#179299",
+		"#8c8fa1",
+	},
+}
+-- 1.0 = 完全不透明；纯白底必须不透明，否则会透出桌面。
+-- 想再要「透出桌面」就调回 0.9 左右。
+config.window_background_opacity = 1.0
 config.window_decorations = "NONE" -- 无边框，交给 niri 平铺管理
 config.window_padding = { left = 10, right = 10, top = 8, bottom = 8 }
 config.initial_cols = 110

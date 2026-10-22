@@ -30,21 +30,26 @@ autocmd BufNewFile,BufRead *.wl set syntax=wl
 autocmd BufNewFile,BufRead *.wls set syntax=wl
 autocmd BufNewFile,BufRead *.mdx setfiletype markdown
 syntax on
-" ---- 本地适配：配色（上游是 color zellner，白底；这里换成 Catppuccin Mocha）----
-" 上游用 color zellner，是浅色/白底配色，配深色终端太刺眼。
-" 改用 Vim 9.1 自带的 colors/catppuccin.vim（vim-runtime 包内，无需装插件）：
-" 它按 'background' 自动选 Mocha(dark) / Latte(light)，Mocha 的
-" #1e1e2e 背景 / #cdd6f4 前景与 WezTerm、Alacritty 的终端配色完全一致；
-" termguicolors 让终端用真彩色取这套颜色。
-" 想换别家深色，改下面 colorscheme 一行即可（如 habamax / retrobox / unokai）。
+" ---- 本地适配：配色（亮色 + 纯白背景）----
+" Vim 9.1 自带 colors/catppuccin.vim（vim-runtime 包内，无需装插件），
+" 它按 'background' 自动选 Mocha(dark) / Latte(light)。这里要亮色，用 Latte。
+" Latte 的默认底色是 #eff1f5 米白；这里统一压成纯白 #ffffff，和 Alacritty / WezTerm 对齐。
+" termguicolors 让终端用真彩色取这套颜色；否则会退回 256 色近似值。
+" 想换别家亮色，改下面 colorscheme 一行即可；纯白覆盖那段保持不动也行。
 set termguicolors
-set background=dark
+set background=light
 colorscheme catppuccin
-" 注意：上游下面那三行 hi 是为白底调过色的，深色底上不能沿用，已删除——
-" hi CursorLine guibg=Grey90       " 白底上的浅灰光标行，在 Mocha 底上是一条亮灰条
-" hi markdownCode ctermfg=DarkCyan    " 深青字在白底够看，在深色底几乎不可读
-" hi markdownCodeBlock ctermfg=DarkCyan
-" catppuccin 自带 CursorLine 与 markdown* 的深色配色，无需覆盖。
+" 纯白底覆盖（必须写在 colorscheme 之后才生效）：
+highlight Normal guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=231
+highlight NormalFloat guifg=#4c4f69 guibg=#ffffff ctermfg=235 ctermbg=231
+" Latte 的灰色系在白底上对比度太低，NonText/行号/折叠列都加深到 overlay 色。
+highlight NonText guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=231
+highlight EndOfBuffer guifg=#ffffff guibg=#ffffff ctermfg=231 ctermbg=231
+highlight SignColumn guibg=#ffffff ctermbg=231
+highlight FoldColumn guifg=#9ca0b0 guibg=#ffffff ctermfg=247 ctermbg=231
+highlight LineNr guifg=#7c7f93 guibg=#ffffff ctermfg=243 ctermbg=231
+highlight CursorLineNr guifg=#df8e1d guibg=#ffffff ctermfg=214 ctermbg=231
+" Catppuccin 自带 CursorLine 与 markdown* 的配色，保持原样，无需覆盖。
 set cursorline
 " ---- 本地适配结束 ----
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
@@ -85,10 +90,7 @@ let g:auto_save_events=["TextChanged","TextChangedI"]
 let g:updatetime=5000
 
 
-"set background transparent
-highlight Normal guibg=NONE ctermbg=NONE
-highlight NormalFloat guibg=NONE
-highlight NonText guibg=NONE ctermbg=NONE
-highlight LineNr guifg=#808080 ctermfg=Gray
+" 说明：旧的透明化 hi（Normal/NormalFloat/NonText guibg=NONE）已删除——
+" 纯白亮色主题要求不透明底色，留 NONE 会透出终端/桌面颜色。
 
 
