@@ -14,44 +14,48 @@ add_newline = true
 # 和工具链版本直接怼在路径后面、挤成一坨的原因。
 # ──────────────────────────────────────────────────────────────────────────
 # 两行布局：第一行 = 边框 + 路径 + git + 工具链 + 时间，第二行 = 只有提示符
+# format = """
+# [╭─](bold #89b4fa) $directory$git_branch$git_status$docker_context$python$nodejs$rust$golang$java$lua$nix_shell$time
+# [╰─](bold #89b4fa) $cmd_duration$status$character"""
 format = """
-[╭─](bold #89b4fa) $directory$git_branch$git_status$docker_context$python$nodejs$rust$golang$java$lua$nix_shell$time
-[╰─](bold #89b4fa) $cmd_duration$status$character"""
+$username[@](#000000)$hostname:$directory$git_branch$git_status$docker_context$python$nodejs$rust$golang$java$lua$nix_shell$time
+$cmd_duration$status$character"""
 
 # 注：bash 不支持右对齐提示符（只有 ble.sh / zsh / fish 支持 right_format），
 # 所以「耗时 / 退出码 / 时间」都放在左边，而不是塞进 right_format 里当摆设。
 
 [character]
 # 提示符箭头用 mauve 紫，和青色/绿色系的状态符号区分开
-success_symbol = '[➜](bold #8839ef)'
-error_symbol = '[➜](bold #f38ba8)'
-vimcmd_symbol = '[❮](bold #f9e2af)'
+success_symbol = '[\$](#8839ef)'
+error_symbol = '[\$](#f38ba8)'
+vimcmd_symbol = '[❮](#f9e2af)'
 
 [username]
 show_always = true
-style_user = 'bold #89b4fa'
-style_root = 'bold #f38ba8'
+## style_user = '#89b4fa'
+style_user = '#40a02b'
+style_root = '#f38ba8'
 format = '[$user]($style)'
 
 # 只在 ssh / 容器里显示主机名；本机日常敲命令时省掉一截噪音
 [hostname]
-ssh_only = true
-style = '#b4befe'
-format = '@[$hostname]($style)'
+ssh_only = false
+style = '#000000'
+format = '[$hostname]($style)'
 
 [directory]
 truncation_length = 3
 truncate_to_repo = false
 # 路径用绿色：Latte 原绿 #40a02b 在米白底上只有 2.96:1，
 # 这里用压暗一档的 #307820（4.8:1），和终端 ANSI 的 green 是同一个值。
-style = 'bold #307820'
+style = '#307820'
 read_only = ' '
 read_only_style = '#f9e2af'
 format = '[$path]($style)[$read_only]($read_only_style)'
 
 [git_branch]
 symbol = ''
-style = 'bold #FF1493'
+style = '#FF1493'
 format = ' [$symbol$branch]($style)'
 
 [git_status]
@@ -72,42 +76,42 @@ deleted = '✘'
 # 工具链统一「前置一个空格 + 青色」，避免和路径、git 粘在一起
 [python]
 format = ' [$symbol($version )(\($virtualenv\) )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [nodejs]
 format = ' [$symbol($version )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [rust]
 format = ' [$symbol($version )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [golang]
 format = ' [$symbol($version )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [java]
 format = ' [$symbol($version )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [lua]
 format = ' [$symbol($version )]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [docker_context]
 format = ' [$symbol$context]($style)'
-style = 'bold #94e2d5'
+style = '#94e2d5'
 
 [cmd_duration]
 min_time = 1000
 format = '[$duration]($style) '
-style = 'bold #6c7086'
+style = '#6c7086'
 
 [status]
 # status 模块默认 disabled=true（starship 源码 status.rs:25-28），必须显式打开
 disabled = false
 format = '[$status]($style) '
-style = 'bold #f38ba8'
+style = '#f38ba8'
 
 [time]
 disabled = false

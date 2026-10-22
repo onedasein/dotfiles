@@ -29,7 +29,8 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 -- 且 bright 比 normal 更深（亮底上「更亮」等于看不见，加深才有区分度）。
 -- 与 alacritty.toml 的数值逐项一致，两个终端切换时颜色不变。
 config.colors = {
-	foreground = "#4c4f69",
+	-- 输入的命令/普通输出用纯黑（与 alacritty.toml 的 foreground 一致）
+	foreground = "#000000",
 	background = "#eff1f5",
 	cursor_bg = "#000000",
 	cursor_fg = "#eff1f5",

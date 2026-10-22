@@ -36,9 +36,10 @@ italic = { family = "FiraCode Nerd Font", style = "Italic" }
 # 想更白就把 background 改成 #ffffff 或 #fafafa，对比度只会更高。
 [colors.primary]
 background = "#eff1f5"
-foreground = "#4c4f69"
+# 输入的命令/普通输出用纯黑，米白底上最清楚；想柔和一点可改 #111111 或 #1a1a1a
+foreground = "#000000"
 dim_foreground = "#7c7f93"
-bright_foreground = "#3b3d52"
+bright_foreground = "#000000"
 
 [colors.cursor]
 # 光标用纯黑方块：米白底上最醒目，也和「亮色主题 + 深色文字」的整体调性一致
