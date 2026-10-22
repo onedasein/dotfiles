@@ -1,24 +1,31 @@
 -- 界面层：主题、状态栏、标签栏、提示浮窗、缩进线、图标
 return {
-	-- 主题：tokyonight 的亮色变体 day，底色再压成 Latte 米白（见下面 config 里的覆盖）。
-	-- 终端（alacritty/wezterm）与 vim 用 Catppuccin Latte 的米白底 #eff1f5，这里对齐。
+	-- 主题分两套：
+	--   Neovide  -> 保持 master 的深色配色（tokyonight moon，深底），这里完全不做覆盖；
+	--   终端 nvim -> tokyonight day + 米白底 #eff1f5，与 alacritty/wezterm/vim 对齐。
+	-- 判断依据 vim.g.neovide：Neovide 启动时在加载用户配置之前就会设置它。
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		opts = {
-			style = "day",
+			style = vim.g.neovide and "moon" or "day",
 			transparent = false,
 			styles = {
 				comments = { italic = true },
 				keywords = { italic = true },
 				sidebars = { "qf", "help", "neo-tree", "Trouble" },
-				floats = "light",
+				floats = vim.g.neovide and "dark" or "light",
 			},
 		},
 		config = function(_, opts)
 			require("tokyonight").setup(opts)
 			vim.cmd.colorscheme("tokyonight")
+
+			-- Neovide 要的就是 master 的深色配色，别做米白覆盖，也别装 ColorScheme 钩子。
+			if vim.g.neovide then
+				return
+			end
 
 			-- 米白底覆盖：day 的默认底色是 #e1e2e7（偏灰蓝），这里统一压成 Latte 的 #eff1f5。
 			-- 同时把偏淡的 UI 色加深一档，浅底上才看得清。
@@ -58,9 +65,9 @@ return {
 		event = "VeryLazy",
 		opts = {
 			options = {
-				-- lualine 没有内置 tokyonight 主题（原来写 "tokyonight" 会静默 fallback），
-				-- 亮色底上直接用内置的 "onelight"。
-				theme = "onelight",
+				-- lualine 没有内置 tokyonight 主题；深色的 Neovide 交给 "auto"
+				-- （跟随当前 colorscheme 取色），终端里的亮色 nvim 用内置 "onelight"。
+				theme = vim.g.neovide and "auto" or "onelight",
 				globalstatus = true,
 				icons_enabled = true,
 				section_separators = { left = "", right = "" },

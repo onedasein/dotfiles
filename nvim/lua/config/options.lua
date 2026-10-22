@@ -27,9 +27,9 @@ opt.inccommand = "split"
 
 -- ===== 界面 =====
 opt.termguicolors = true
--- 明确亮色。必须显式设置：Neovide 0.16 起会按系统主题自动改这个选项，
--- 系统是深色时就可能把背景拉回深色，亮色主题需要钉死。
-opt.background = "light"
+-- 必须显式设置：Neovide 0.16 起会按系统主题自动改这个选项。这里按运行环境钉死：
+-- Neovide 保持 master 的深色配色，终端里的 nvim 用亮色。
+opt.background = vim.g.neovide and "dark" or "light"
 opt.mouse = "a"
 opt.mousescroll = "ver:3,hor:6"
 opt.splitright = true
