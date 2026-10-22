@@ -50,6 +50,8 @@ highlight SignColumn guibg=#eff1f5 ctermbg=255
 highlight FoldColumn guifg=#9ca0b0 guibg=#eff1f5 ctermfg=247 ctermbg=255
 highlight LineNr guifg=#7c7f93 guibg=#eff1f5 ctermfg=243 ctermbg=255
 highlight CursorLineNr guifg=#df8e1d guibg=#eff1f5 ctermfg=214 ctermbg=255
+" 注释：Latte 的 #7c7f93 在米白底上只有 3.7:1，压到 overlay1 #6c6f85（4.9:1）
+highlight Comment guifg=#6c6f85 ctermfg=243 gui=italic cterm=italic
 " Catppuccin 自带 CursorLine 与 markdown* 的配色，保持原样，无需覆盖。
 set cursorline
 " ---- 本地适配结束 ----

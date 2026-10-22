@@ -50,6 +50,8 @@ return {
 				hl(0, "WinSeparator", { fg = "#dce0e8", bg = bg })
 				hl(0, "VertSplit", { link = "WinSeparator" })
 				hl(0, "MsgArea", { fg = text, bg = bg })
+				-- 注释：day 变体默认 #848cb5 在米白底上只有约 3:1，压到 Latte overlay1 更耐看
+				hl(0, "Comment", { fg = "#6c6f85", italic = true })
 			end
 			apply_light()
 			vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_light })
