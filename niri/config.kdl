@@ -112,7 +112,7 @@ binds {
     // 主终端用 WezTerm（Mod+Return），Alacritty 留作备用（Mod+T）。
     // 注意：WezTerm 装在 ~/.local 下，不在 niri 的 PATH 里，所以这里用绝对路径。
     Mod+Space      { spawn "alacritty"; }
-    Mod+T { spawn "firefox"; }
+    Mod+E { spawn "firefox"; }
     Mod+Return { spawn "/home/dasein/.local/bin/wezterm"; }
     Mod+D      { spawn "fuzzel"; }
     Mod+Shift+K { spawn "kbd" "toggle"; }   // keyboard backlight on/off
