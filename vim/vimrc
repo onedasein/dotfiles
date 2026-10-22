@@ -52,6 +52,28 @@ highlight LineNr guifg=#7c7f93 guibg=#eff1f5 ctermfg=243 ctermbg=255
 highlight CursorLineNr guifg=#df8e1d guibg=#eff1f5 ctermfg=214 ctermbg=255
 " 注释：Latte 的 #7c7f93 在米白底上只有 3.7:1，压到 overlay1 #6c6f85（4.9:1）
 highlight Comment guifg=#6c6f85 ctermfg=243 gui=italic cterm=italic
+
+" ---- 语法色加强 -------------------------------------------------------------
+" Catppuccin Latte 是「柔和」取向的浅色盘，原始色在 #eff1f5 底上普遍只有 2~3:1
+" （string 2.96、constant 2.44、type 2.31、preproc 2.20），看久了发淡。
+" 这里保留色相、把明度压暗一档，文字组统一到 4.8~5.3:1。语句/关键字用的
+" mauve #8839ef 本来就有 4.79，不动；oper 之外的 UI 色也不动。
+highlight String     guifg=#307820 ctermfg=28
+highlight Constant   guifg=#a04a0a ctermfg=130
+highlight Number     guifg=#a04a0a ctermfg=130
+highlight Float      guifg=#a04a0a ctermfg=130
+highlight Function   guifg=#1a5cd8 ctermfg=26
+highlight Title      guifg=#1a5cd8 ctermfg=26 gui=bold cterm=bold
+highlight Directory  guifg=#1a5cd8 ctermfg=26
+highlight Type       guifg=#935e13 ctermfg=94
+highlight PreProc    guifg=#b53b93 ctermfg=127
+highlight Special    guifg=#b53b93 ctermfg=127
+highlight Exception  guifg=#935e13 ctermfg=94
+highlight Identifier guifg=#b04545 ctermfg=131
+highlight Todo       guifg=#b04545 ctermfg=131 gui=bold cterm=bold
+highlight Operator   guifg=#0b6bb0 ctermfg=25
+highlight MatchParen guifg=#a04a0a ctermfg=130 gui=bold cterm=bold
+highlight CursorLineNr guifg=#935e13 guibg=#eff1f5 ctermfg=94 ctermbg=255
 " Catppuccin 自带 CursorLine 与 markdown* 的配色，保持原样，无需覆盖。
 set cursorline
 " ---- 本地适配结束 ----
