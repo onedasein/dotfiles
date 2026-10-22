@@ -47,12 +47,39 @@ return {
       -- 全局默认：所有 server 都套用
       vim.lsp.config("*", {
         capabilities = capabilities,
+        handlers = {
+          -- 未使用/多余的代码不要被染灰：LSP 诊断带 DiagnosticTag.Unnecessary(1) 时，
+          -- nvim 会追加 DiagnosticUnnecessary 高亮（暗灰色，和注释一样），打字时很难看清。
+          -- 这里把 Unnecessary 标记摘掉，保留 Deprecated(2) 的删除线提示。
+          ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+            if result and result.diagnostics then
+              for _, d in ipairs(result.diagnostics) do
+                if d.tags then
+                  local keep = {}
+                  for _, tag in ipairs(d.tags) do
+                    if tag ~= 1 then
+                      keep[#keep + 1] = tag
+                    end
+                  end
+                  d.tags = #keep > 0 and keep or nil
+                end
+              end
+            end
+            return vim.lsp.diagnostic.on_publish_diagnostics(nil, result, ctx, config)
+          end,
+        },
         on_attach = function(client, bufnr)
           -- 你不喜欢 inlay hints，这里对所有 server 强制关闭
           if client.server_capabilities.inlayHintProvider then
             pcall(vim.lsp.inlay_hint.enable, false, { bufnr = bufnr })
           end
         end,
+      })
+
+      -- hint 级诊断（比如 TS 的“声明了但没被引用”）只在 sign 列留一个小标记，
+      -- 不在代码上画波浪线；error / warning 的波浪线保持不变。
+      vim.diagnostic.config({
+        underline = { severity = { min = vim.diagnostic.severity.WARN } },
       })
 
       -- 逐个 server 的细节配置

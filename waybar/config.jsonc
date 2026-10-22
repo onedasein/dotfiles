@@ -11,6 +11,7 @@
 	// 装着后把 "custom/cash" 加回下面数组即可。
 	// 本地适配：cpu 槽位换成电池，右栏现在显示电池图标 + 电量百分比
 	"modules-right": ["tray", "battery", "memory", "pulseaudio", "custom/gpu"],
+	// custom/kbd
 	// Modules configuration
 	"niri/workspaces": {
 		"all-outputs": true,
@@ -105,5 +106,15 @@
 		"return-type": "json",
 		"exec": "gpu waybar",
 		"on-click": "gpu-menu"
+	},
+	// local: keyboard backlight (click: toggle, right-click: off)
+	"custom/kbd": {
+		"format": "{text}",
+		"tooltip": true,
+		"interval": 5,
+		"return-type": "json",
+		"exec": "kbd waybar",
+		"on-click": "kbd toggle",
+		"on-click-right": "kbd off"
 	}
 }
