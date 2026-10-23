@@ -202,7 +202,16 @@ return {
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
+          -- 空括号/空花括号内按回车：交给 mini.pairs 展开成三行（光标留在中间行）；
+          -- 补全菜单有选中项时仍按确认处理。mini.pairs 自己的 <CR> 会被 nvim-cmp 覆盖，
+          -- 所以这里显式转发。
+          ["<CR>"] = cmp.mapping(function()
+            if cmp.confirm({ select = false }) then
+              return
+            end
+            local ok, pairs = pcall(require, "mini.pairs")
+            vim.api.nvim_feedkeys(ok and pairs.cr() or "\r", "in", false)
+          end),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<Tab>"] = cmp.mapping(function(fallback)

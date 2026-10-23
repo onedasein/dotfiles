@@ -29,6 +29,21 @@ autocmd Filetype javascript,typescript,typescriptreact,vue,astro setlocal sw=2 t
 autocmd BufNewFile,BufRead *.wl set syntax=wl
 autocmd BufNewFile,BufRead *.wls set syntax=wl
 autocmd BufNewFile,BufRead *.mdx setfiletype markdown
+" ---- 空花括号内回车展开为三行（C/Go 的 K&R 大括号风格）----
+" 光标停在 { 与 } 之间时按回车，默认只拆出两行、光标还贴在右花括号前。
+" 这里改成拆行后再用 <C-o>O 在中间开一行，变成三行且光标在中间行。
+function! s:SmartCR() abort
+  let l:line = getline('.')
+  let l:i = col('.') - 1
+  if l:i >= 1 && l:line[l:i - 1] ==# '{' && l:line[l:i] ==# '}'
+    return "\<CR>\<C-o>O"
+  endif
+  return "\<CR>"
+endfunction
+augroup smart_cr_braces
+  autocmd!
+  autocmd FileType c,go inoremap <buffer><silent><expr> <CR> <SID>SmartCR()
+augroup END
 syntax on
 " ---- 本地适配：配色（亮色 + Latte 米白背景）----
 " Vim 9.1 自带 colors/catppuccin.vim（vim-runtime 包内，无需装插件），
