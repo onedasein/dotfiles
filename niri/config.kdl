@@ -44,6 +44,7 @@ spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "before-sleep" "s
 // polkit 认证代理：GUI 里需要管理员权限的操作（改时间、装软件、配网络）会弹认证框
 spawn-at-startup "/home/dasein/.local/opt/polkit-mate/polkit-mate-authentication-agent-1"
 
+spawn-at-startup "sh" "-c" "sleep 2; exec /usr/libexec/gsd-rfkill"
 // 动画：想要截图那种"瞬间就位"的手感可以关
 animations {
     // off
