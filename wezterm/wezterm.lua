@@ -41,9 +41,9 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 config.colors = {
 	-- 输入的命令/普通输出用纯黑（与 alacritty.toml 的 foreground 一致）
 	foreground = "#000000",
-	background = "#eff1f5",
+	background = "#ffffff",
 	cursor_bg = "#000000",
-	cursor_fg = "#eff1f5",
+	cursor_fg = "#000000",
 	cursor_border = "#000000",
 	selection_fg = "#4c4f69",
 	selection_bg = "#ccd0da",
