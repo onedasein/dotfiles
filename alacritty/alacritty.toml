@@ -82,6 +82,9 @@ style = { shape = "Block", blinking = "Off" }
 
 [terminal]
 osc52 = "CopyPaste"
+# 登录 shell 用 fish，与 WezTerm 的 default_prog 保持一致；
+# 包装脚本内部做了兜底：/usr/bin/fish 不存在时回退 bash -l。
+shell = { program = "/home/dasein/.local/bin/alacritty-login-shell" }
 
 # ── 复制粘贴 ──────────────────────────────────────────────────────────
 # 默认就有 Ctrl+Shift+C / Ctrl+Shift+V；这里再把 Ctrl+V 也接到粘贴上，
