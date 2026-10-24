@@ -73,3 +73,6 @@ end
 if functions -q fzf_configure_bindings
     fzf_configure_bindings --directory=ctrl-t
 end
+
+# fd-find 在Ubuntu里命令名为fdfind
+abbr --add fd fdfind

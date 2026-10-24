@@ -1,0 +1,19 @@
+[Unit]
+Description=Sunsetr - automatic blue-light filter (screen colour temperature)
+Documentation=https://psi4j.github.io/sunsetr/
+PartOf=graphical-session.target
+Requires=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/sunsetr
+Restart=on-failure
+RestartSec=5
+Slice=background.slice
+ConfigurationDirectory=sunsetr
+ConfigurationDirectoryMode=0700
+
+[Install]
+WantedBy=graphical-session.target
