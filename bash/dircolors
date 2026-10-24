@@ -48,27 +48,29 @@ TERM xterm*
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 # Text color codes:
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
-# Background color codes:
+# Background color codes（本配置刻意不用）：
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+# 亮色底上，带背景的条目会变成「文字下面压一块色块」（经典的 37;41 白字红底、
+# 40;33 黑底黄字）。所以下面凡是默认带背景的条目，全部改成纯前景色。
 #NORMAL 00 # no color code at all
 #FILE 00 # regular file: use no color at all
 RESET 0
 DIR 34
 LINK 36
 MULTIHARDLINK 00
-FIFO 40;33
+FIFO 33
 SOCK 35
 DOOR 35
-BLK 40;33
-CHR 40;33
-ORPHAN 40;31
+BLK 33
+CHR 33
+ORPHAN 31
 MISSING 00
-SETUID 37;41
-SETGID 30;43
+SETUID 35
+SETGID 33
 CAPABILITY 00
-STICKY_OTHER_WRITABLE 30;42
-OTHER_WRITABLE 34;42
-STICKY 37;44
+STICKY_OTHER_WRITABLE 36
+OTHER_WRITABLE 36
+STICKY 36
 EXEC 32
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to color below. Put the extension, a space, and the color init string.

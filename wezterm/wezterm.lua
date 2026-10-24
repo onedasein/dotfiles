@@ -33,7 +33,7 @@ config.font_size = 14.0
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "dlig=0" }
 
 -- 配色与外观
--- 亮色主题：Catppuccin Latte 的色相 + 为米白底调过的明度，底色 #eff1f5。
+-- 亮色主题：Catppuccin Latte 的色相 + 为纯白底调过的明度，底色 #ffffff。
 -- Latte 的 ANSI 原色是给深色终端调的，直接放亮底上绿/黄/青对比度只有 2.3~3.3；
 -- 这里保持色相、压暗明度，normal 统一 ≥4.8:1、bright ≥6.8:1，
 -- 且 bright 比 normal 更深（亮底上「更亮」等于看不见，加深才有区分度）。
@@ -43,12 +43,24 @@ config.colors = {
 	foreground = "#000000",
 	background = "#ffffff",
 	cursor_bg = "#000000",
-	cursor_fg = "#000000",
+	-- 方块光标下的字符：必须用亮色。原来和 cursor_bg 一样是 #000000，
+	-- 光标压到字上时字也是黑的，看起来像「光标把字盖住了」。
+	cursor_fg = "#ffffff",
 	cursor_border = "#000000",
 	selection_fg = "#4c4f69",
 	selection_bg = "#ccd0da",
 	scrollbar_thumb = "#ccd0da",
 	split = "#dce0e8",
+	-- 标签栏：不配的话走 WezTerm 内置的深色默认值，白底上开多标签时
+	-- 顶上会横着一条深色条。这里换成 Latte 的浅灰层级。
+	tab_bar = {
+		background = "#e6e9ef",
+		active_tab = { bg_color = "#ffffff", fg_color = "#000000" },
+		inactive_tab = { bg_color = "#dce0e8", fg_color = "#5c5f77" },
+		inactive_tab_hover = { bg_color = "#e6e9ef", fg_color = "#000000" },
+		new_tab = { bg_color = "#dce0e8", fg_color = "#5c5f77" },
+		new_tab_hover = { bg_color = "#e6e9ef", fg_color = "#000000" },
+	},
 	ansi = {
 		"#5c5f77", -- black
 		"#d20f39", -- red
@@ -70,7 +82,7 @@ config.colors = {
 		"#4e5263", -- bright white
 	},
 }
--- 1.0 = 完全不透明；亮色米白底必须不透明，否则会透出桌面。
+-- 1.0 = 完全不透明；纯白底必须不透明，否则会透出桌面。
 -- 想再要「透出桌面」就调回 0.9 左右。
 config.window_background_opacity = 1.0
 config.window_decorations = "NONE" -- 无边框，交给 niri 平铺管理

@@ -1,13 +1,13 @@
 # ~/.config/alacritty/alacritty.toml
 # Alacritty 0.13+ 使用 TOML 格式；更老的版本用 alacritty.yml（YAML），字段名基本对应。
-# 当前主题：亮色（Latte 原生米白底 #eff1f5）+ Catppuccin Latte 调色板，透明度已关闭。
+# 当前主题：亮色（纯白底 #ffffff）+ Catppuccin Latte 调色板，透明度已关闭。
 
 [window]
 # 由 niri 接管窗口装饰，终端自身不出标题栏
 decorations = "none"
 # 内边距：截图里的留白就来自这里，和 niri 的 gaps 叠加
 padding = { x = 14, y = 12 }
-# 1.0 = 完全不透明（亮色米白底必须不透明，否则会透出桌面）。
+# 1.0 = 完全不透明（纯白底必须不透明，否则会透出桌面）。
 # 想再要「透出桌面」就把这里调回 0.8 左右，同时把 blur 打开。
 opacity = 1.0
 dynamic_padding = false
@@ -27,15 +27,13 @@ bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
 
 # ── 配色：Catppuccin Latte 的色相 + 为亮底调过的明度 ──────────────────
-# 底色用 Latte 原生米白 #eff1f5。但 Latte 那套 ANSI 是给深色终端设计的，
-# 原样放到米白底上：绿 #40a02b 对比度 2.96、黄 #df8e1d 2.31、青 #179299 3.31，
-# 全都低于 4.5，`ls`/`grep`/`git` 的彩色输出会发虚。
-# 这里保持色相不动、只把明度压暗，normal 色统一到 4.8:1 以上，bright 色到 6.8:1。
-# bright 反而比 normal 更深是亮色主题的惯例：亮底上「更亮」等于看不见，
+# 底色用纯白 #ffffff。Latte 原生米白 #eff1f5 更柔和，想换回去只改下面一行即可。
+# Latte 那套 ANSI 是给深色终端设计的，原样放到白底上：绿 #40a02b 对比度 3.05、
+# 黄 #df8e1d 2.38、青 #179299 3.42，全都低于 4.5，`ls`/`grep`/`git` 的彩色输出会发虚。
+# 这里保持色相不动、只把明度压暗，normal 色统一到 5:1 以上，bright 色到 7:1 左右。
+# bright 反而比 normal 更深是亮色主题的惯例：白底上「更亮」等于看不见，
 # 加深才能让粗体/高亮文字有区分度（GitHub Light 等亮色主题也是这么做的）。
-# 想更白就把 background 改成 #ffffff 或 #fafafa，对比度只会更高。
 [colors.primary]
-# background = "#eff1f5"
 background = "#ffffff"
 # 输入的命令/普通输出用纯黑，米白底上最清楚；想柔和一点可改 #111111 或 #1a1a1a
 foreground = "#000000"
@@ -43,21 +41,43 @@ dim_foreground = "#7c7f93"
 bright_foreground = "#000000"
 
 [colors.cursor]
-# 光标用纯黑方块：米白底上最醒目，也和「亮色主题 + 深色文字」的整体调性一致
-text = "#eff1f5"
+# 光标用纯黑方块；方块下的字符用白字，否则光标压上去字就看不见了
+text = "#ffffff"
 cursor = "#000000"
 
 [colors.vi_mode_cursor]
 # vi 模式的光标保持蓝色，和普通模式的黑光标区分开
-text = "#eff1f5"
+text = "#ffffff"
 cursor = "#2563eb"
 
 [colors.selection]
 text = "#4c4f69"
 background = "#ccd0da"
 
+# ── 其余界面元素：默认值都是给深色终端配的，白底上会变成「色块盖字」 ──
+# 搜索命中：默认 #181818 字 + #ac4242 深红底；聚焦命中默认 #f4bf75 橙底。
+# 这里改成浅黄底黑字，白底上既醒目又不糊成一块。
+[colors.search]
+matches = { foreground = "#000000", background = "#f9e2af" }
+focused_match = { foreground = "#000000", background = "#df8e1d" }
+
+# 终端提示（超链接/正则提示的浮层标签）：默认深色块
+[colors.hints]
+start = { foreground = "#ffffff", background = "#2563eb" }
+end = { foreground = "#000000", background = "#ccd0da" }
+
+# 搜索输入框 / 超链接预览的底部条：默认 #181818 字 + #d8d8d8 底
+[colors.footer_bar]
+foreground = "#4c4f69"
+background = "#e6e9ef"
+
+# 搜索/vi 模式右上角的进度指示：默认用反色（黑底白字）
+[colors.line_indicator]
+foreground = "#4c4f69"
+background = "#e6e9ef"
+
 [colors.normal]
-# 前两列是 Latte 原色，注释里的数字是在 #eff1f5 上的对比度
+# 前两列是 Latte 原色，注释里的数字是在 #ffffff 上的对比度
 black = "#5c5f77"    # 5.53
 red = "#d20f39"      # 4.80
 green = "#307820"    # 4.84（原 #40a02b 只有 2.96）
