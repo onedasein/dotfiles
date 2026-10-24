@@ -114,7 +114,7 @@ binds {
     // 注意：WezTerm 装在 ~/.local 下，不在 niri 的 PATH 里，所以这里用绝对路径。
     Mod+Space      { spawn "alacritty"; }
     Mod+E { spawn "firefox"; }
-    Mod+Return { spawn "/home/dasein/.local/bin/wezterm"; }
+    Mod+Return { spawn "wezterm"; }
     Mod+D      { spawn "fuzzel"; }
     Mod+Shift+K { spawn "kbd" "toggle"; }   // keyboard backlight on/off
     Mod+Shift+G { spawn "gpu-menu"; }   // GPU mode switch (power off to apply)
