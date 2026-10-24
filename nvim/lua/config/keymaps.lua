@@ -54,5 +54,11 @@ map("n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<cr>", { desc = "Close other
 map("x", "<", "<gv", { desc = "Decrease indent" })
 map("x", ">", ">gv", { desc = "Increase indent" })
 
+-- 折行开关（窗口级）：默认折行，想看横着的长行时临时关掉
+map("n", "<leader>uw", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.notify("Wrap " .. (vim.wo.wrap and "on" or "off"), vim.log.levels.INFO)
+end, { desc = "Toggle line wrap" })
+
 -- 重新加载配置文件
 map("n", "<leader>R", "<cmd>source $MYVIMRC<cr>", { desc = "Reload init.lua" })
