@@ -4,8 +4,18 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
--- 默认 shell
-config.default_prog = { "/usr/bin/bash", "-l" }
+-- 默认 shell：交互用 fish；脚本仍由 bash 执行（#! 行或显式 bash 调用）
+-- fish 还没装好时回退 bash，否则新窗口会直接报 ENOENT 起不来
+local function is_executable(path)
+	local f = io.open(path, "r")
+	if f then
+		f:close()
+		return true
+	end
+	return false
+end
+local fish = "/usr/bin/fish"
+config.default_prog = is_executable(fish) and { fish, "-l" } or { "/usr/bin/bash", "-l" }
 config.default_cwd = wezterm.home_dir
 
 -- 字体：Nerd Font 图标 + 中文字体回退（写代码/看中文都不缺字）
@@ -65,8 +75,14 @@ config.colors = {
 config.window_background_opacity = 1.0
 config.window_decorations = "NONE" -- 无边框，交给 niri 平铺管理
 config.window_padding = { left = 10, right = 10, top = 8, bottom = 8 }
-config.initial_cols = 110
-config.initial_rows = 30
+-- 初始窗口尺寸：半宽 + 全高（2026-10-24 按本机屏幕实测标定）
+-- 屏幕逻辑分辨率 1706×1066（2560×1600 @ 缩放 1.5），niri 满高可用区是 1013。
+-- 实测 FiraCode Nerd Font 14pt 的字符格 ≈ 11.5 × 23 逻辑像素，且
+--   窗口像素宽 = cols × 11.5 + 10、窗口像素高 = rows × 23 + 8。
+-- 于是 73 列 ≈ 850px（屏幕一半 = 853）、44 行 ≈ 1020px ≥ 1013，niri 里就是满高。
+-- 换字号 / 换屏 / 改 padding 后按公式重算，步骤见 ~/tutorial/wezterm/wezterm.md。
+config.initial_cols = 73
+config.initial_rows = 44
 
 -- Wayland / 输入法
 config.enable_wayland = true
