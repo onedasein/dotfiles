@@ -27,6 +27,14 @@ if command -q dircolors; and test -r $HOME/.dircolors
     eval (dircolors -c $HOME/.dircolors | string replace -r '^setenv' 'set -gx' | string replace -r '; *$' '')
 end
 
+# ── 选中/搜索高亮：改成亮色主题的浅灰底 ─────────────────────────────
+# fish 自带的默认值是白字 + brblack 底（选中文本、补全菜单选中项、Ctrl+R
+# 的历史命中都是深色块），在纯白底上非常扎眼；换成和终端选区一致的 #ccd0da。
+# 注意 fish_variables 里有这几项的 universal 值，global 会覆盖它们。
+set -g fish_color_selection normal --background=#ccd0da
+set -g fish_color_search_match --background=#ccd0da
+set -g fish_pager_color_selected_background --background=#ccd0da
+
 # ── zoxide：z 模糊跳目录、zi 交互选 ─────────────────────────────────
 if command -q zoxide
     zoxide init fish --cmd z | source
