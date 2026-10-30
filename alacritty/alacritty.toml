@@ -119,10 +119,10 @@ key = "v"
 mods = "Control|Shift"
 action = "Paste"
 
-[[keyboard.bindings]]
-key = "v"
-mods = "Control"
-action = "Paste"
+# [[keyboard.bindings]]
+# key = "v"
+# mods = "Control"
+# action = "Paste"
 
 [[keyboard.bindings]]
 key = "Insert"
