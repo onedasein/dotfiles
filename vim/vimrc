@@ -1,4 +1,5 @@
 set nocompatible
+setlocal noswapfile " 不要生成swap文件
 
 " ---- 本地适配（上游没有这行；以后重新拉上游 vimrc 时记得保留）----
 " 上游把 vimrc/syntax 放在 ~/.config/vim（= Ubuntu vim 默认 rtp 第一项），
