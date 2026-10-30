@@ -8,7 +8,7 @@
 //   niri msg action reload-config                 # 热重载
 //
 // 注意：niri 用的是 KDL v2 语法。同一行里写完 node 再闭合括号时必须有分号，
-// 例如 `Mod+T { spawn "alacritty"; }`，漏了分号会报 "unexpected token"。
+// 例如 `Mod+O { toggle-overview; }`，漏了分号会报 "unexpected token"。
 
 // ── 杂项 ──────────────────────────────────────────────────────────────
 
@@ -32,6 +32,7 @@ spawn-at-startup "mako"
 spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/osselo-Ask_a_friend.jpg" "-m" "fill"
 
 environment {
+	LC_CTYPE "zh_CN.UTF-8"
 	QT_IM_MODULE "fcitx"
 	XMODIFIERS "@im=fcitx"
 	SDL_IM_MODULE "fcitx"
@@ -110,11 +111,13 @@ layout {
 
 binds {
     // 启动程序
-    // 主终端用 WezTerm（Mod+Return），Alacritty 留作备用（Mod+T）。
+    // 主终端用 WezTerm（Mod+Return），Alacritty 留作备用（Mod+Space）。
     // 注意：WezTerm 装在 ~/.local 下，不在 niri 的 PATH 里，所以这里用绝对路径。
     Mod+Space      { spawn "alacritty"; }
     Mod+E { spawn "firefox"; }
+    Mod+T { spawn "google-chrome"; }   // Google Chrome 浏览器
     Mod+Return { spawn "wezterm"; }
+    Mod+Shift+D { spawn "dict"; } // 划词查词
     Mod+D      { spawn "fuzzel"; }
     Mod+Shift+K { spawn "kbd" "toggle"; }   // keyboard backlight on/off
     Mod+Shift+G { spawn "gpu-menu"; }   // GPU mode switch (power off to apply)
@@ -253,6 +256,11 @@ window-rule {
     background-effect {
         blur true
     }
+}
+window-rule {
+    match app-id=r#"^zenity$"#
+    open-floating true
+    default-floating-position x=60 y=60 relative-to="top-right"
 }
 
 // ── 参考 cppHusky/dotfiles 补的两条 ───────────────────────────────────
